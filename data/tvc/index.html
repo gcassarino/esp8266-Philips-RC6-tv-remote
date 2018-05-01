@@ -1,0 +1,454 @@
+<!-- copyright 2018 Gianluca Cassarino -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Description" content="TV remote control">
+	<meta name="Author" content="Gianluca Cassarino - gcassarino@gmail.com">
+	<meta name="Robots" content="index,follow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Philips TV Remote custom</title>
+	<link rel="shortcut icon" sizes="156x138" href="icon.png">
+	
+	<style>
+	
+	label
+        {
+/*             float: right; */
+        }
+
+        input
+        {
+            display:block;
+        }
+	
+	</style>
+	
+</head>
+<body>
+  <strong>Philips TV Remote custom</strong>
+  <hr>
+  
+  <section id="keyboard">
+  	<div class="wrapper">
+  		<br>
+  		<a href="#" onclick="keyClick('keyPower');return false;" class="btn btn--m btn--red">power</a>
+  		<br>
+  	</div>
+  	<br>
+  	<div class="wrapper">
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn1" data-action="">btn1</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn2" data-action="">btn2</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn3" data-action="">btn3</a>
+  	</div>
+  	<div class="wrapper">
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn4" data-action="">btn4</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn5" data-action="">btn5</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn6" data-action="">btn6</a>
+  	</div>
+  	<div class="wrapper">
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn7" data-action="">btn7</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn8" data-action="">btn8</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn9" data-action="">btn9</a>
+  	</div>
+  	<div class="wrapper">
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn10" data-action="">btn10</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn11" data-action="">btn11</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn12" data-action="">btn12</a>
+  	</div>
+  	<div class="wrapper">
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn13" data-action="">btn13</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn14" data-action="">btn14</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn15" data-action="">btn15</a>
+  	</div>
+  	<div class="wrapper">
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn16" data-action="">btn16</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn17" data-action="">btn17</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn18" data-action="">btn18</a>
+  	</div>
+  	<div class="wrapper">
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn19" data-action="">btn19</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn20" data-action="">btn20</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn21" data-action="">btn21</a>
+  	</div>
+  	<div class="wrapper">
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn22" data-action="">btn22</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn23" data-action="">btn23</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn24" data-action="">btn24</a>
+  	</div>
+  	<div class="wrapper">
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn25" data-action="">btn25</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn26" data-action="">btn26</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn27" data-action="">btn27</a>
+  	</div>
+  	<div class="wrapper">
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn28" data-action="">btn28</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn29" data-action="">btn29</a>
+  		<a href="#"  class="btn btn--m btn--grey hidden" id="btn30" data-action="">btn30</a>
+  	</div>
+  </section>
+	<hr>
+	
+	<div class="toggleEdit">
+    <a href="#" onclick="toggleEditMode();return false;" id="toggleEditBtn" class="btn btn--m btn--grey" style="width:128px; display:inline-block;">Add/Edit</a>
+    <span id="btnId"></span>
+  </div>
+  
+  <section id="editor" class="hidden">
+  	<div class="wrapper">
+      <form action="/pconfig" method="post" id="keydata">
+        <input type="hidden" name="afterpost" value="/tvc/index.html">
+        <div>
+          <label for="bn">Button Name</label>
+          <input type="text" id="bn" name="n" value="" required pattern="[0-9A-Za-z +-]+" minlength="2" maxlength="12" >
+        </div>
+        <div>
+          <br>
+          <label for="cs">Channel number or key sequence</label>
+          <input type="text" id="cs" name="s" value="" pattern="[0-9A-Za-z,]+">
+          <span style="font-size: 11px;">leave blank to hide button</span>
+        </div>
+        <div>
+          <br>
+          <label for="bc">Button Color</label>
+          <input type="text" id="bc" name="c" value="" required minlength="1" maxlength="1" pattern="r|g|b|y|e">
+        </div>
+        <div>
+          <br>
+          <input type="hidden" id="btnpostdata" name="postdata" value="" style="width: 100%;">
+        </div>
+        <div>
+          <br>
+          <input type="submit" name="sub" style="width:150px" class="btn btn--m btn--blue" value="Save">
+        </div>
+      </form>
+  		<ul style="font-size: 11px;">
+  			<li>Button Name: characters, numbers, dash and space allowed, min length 3 characters max 12.</li>
+  			<li>Channel number or key sequence: un canale o una sequenza di azioni codificata tramite i comandi "keyXXX"</li>
+  			<li>Button Color: il colore del tasto a scelta tra r/g/b/e e sta per grigio</li>
+  		</ul>
+  	</div>
+  </section>
+	<hr>
+	
+	<div class="wrapper">
+		<br>
+		<a href="#" onclick="testSeq();return false;" class="btn btn--m btn--grey">test comando</a>
+		<br>
+	</div>
+	
+  <div style="font-size: 11px;">suggerimento: puoi usare la lettera s per aggiungere una pausa di circa 0.3 secondi tra i comandi, es: <span style="color:red;">keyChannelUp,s,s,s,s,s,s,s,s,s,s,keyChannelDown</span> s x 10 = circa 3 secondi di pausa</div>
+
+<script>
+	window.onload = function() {
+		load("style.css","css", function() {
+			load("microajax.js","js", function() {
+				// Do something after load...
+				// custom setValues
+				function setValuesBtn(url) {
+          microAjax(url, function (res) {
+              res.split(String.fromCharCode(10)).forEach(
+              function (entry) {
+                fields = entry.split("|");
+                if(fields[2] == "input") {
+                  document.getElementById(fields[0]).value = fields[1];
+                }
+                else if(fields[2] == "div") {
+                  //document.getElementById(fields[0]).innerHTML  = fields[1];
+                  //console.log(fields[1]);
+                  var obj = JSON.parse(fields[1]);
+                  // json data: button name
+                  document.getElementById(fields[0]).innerHTML  = obj.n;
+                  // json data: command key/s
+                  document.getElementById(fields[0]).setAttribute('data-action', obj.s);
+                  // json data: color
+                  document.getElementById(fields[0]).classList.remove("btn--grey");
+                  switch (obj.c) {
+                    case "r":
+                      document.getElementById(fields[0]).classList.add("btn--red");
+                      break;
+                    case "g":
+                      document.getElementById(fields[0]).classList.add("btn--green");
+                      break;
+                    case "b":
+                      document.getElementById(fields[0]).classList.add("btn--blue");
+                      break;
+                    case "y":
+                      document.getElementById(fields[0]).classList.add("btn--yellow");
+                      break;
+                    case "e":
+                      document.getElementById(fields[0]).classList.add("btn--grey");
+                      break;
+                    default:
+                      document.getElementById(fields[0]).classList.remove("btn--grey"); // error condition
+                  }
+                  // css visibility, buttons without a command/sequence will remain hidden
+                  if(obj.s != ""){
+                    document.getElementById(fields[0]).classList.remove("hidden");
+                  }
+                  //
+                } else if(fields[2] == "chk") {
+                  document.getElementById(fields[0]).checked  = fields[1];
+                }
+              }
+            ); // forEach
+          });
+        }
+				setValuesBtn("/rconfig/d_btn1/d_btn2/d_btn3/d_btn4/d_btn5/d_btn6/d_btn7/d_btn8/d_btn9/d_btn10/d_btn11/d_btn12/d_btn13/d_btn14/d_btn15/d_btn16/d_btn17/d_btn18/d_btn19/d_btn20/d_btn21/d_btn22/d_btn23/d_btn24/d_btn25/d_btn26/d_btn27/d_btn28/d_btn29/d_btn30");
+				// invoco la funzione di init
+				initUI();
+			});
+		});
+	}
+	function load(e,t,n) {
+		if("js"==t) {
+			var a=document.createElement("script");
+			a.src=e,
+			a.type="text/javascript",
+			a.async=!1,
+			a.onload=function() { n() },
+			document.getElementsByTagName("head")[0].appendChild(a)
+		}
+		else if("css"==t) {
+			var a=document.createElement("link");
+			a.href=e,
+			a.rel="stylesheet",
+			a.type="text/css",
+			a.async=!1,
+			a.onload=function(){ n() },
+			document.getElementsByTagName("head")[0].appendChild(a)
+		}
+	}
+        
+        
+        function initUI(){
+            // definisco una variablile globale bool isEdit
+            isEdit = false;
+            // globale id del tasto da creare/modificare
+            btnId = '';
+            //
+            form = document.getElementById("keydata");
+            resdata = document.getElementById("btnpostdata");
+            //
+            document.getElementById('btn1').onclick = keyClick;
+            document.getElementById('btn2').onclick = keyClick;
+            document.getElementById('btn3').onclick = keyClick;
+            document.getElementById('btn4').onclick = keyClick;
+            document.getElementById('btn5').onclick = keyClick;
+            document.getElementById('btn6').onclick = keyClick;
+            document.getElementById('btn7').onclick = keyClick;
+            document.getElementById('btn8').onclick = keyClick;
+            document.getElementById('btn9').onclick = keyClick;
+            document.getElementById('btn10').onclick = keyClick;
+            document.getElementById('btn11').onclick = keyClick;
+            document.getElementById('btn12').onclick = keyClick;
+            document.getElementById('btn13').onclick = keyClick;
+            document.getElementById('btn14').onclick = keyClick;
+            document.getElementById('btn15').onclick = keyClick;
+            document.getElementById('btn16').onclick = keyClick;
+            document.getElementById('btn17').onclick = keyClick;
+            document.getElementById('btn18').onclick = keyClick;
+            document.getElementById('btn19').onclick = keyClick;
+            document.getElementById('btn20').onclick = keyClick;
+            document.getElementById('btn21').onclick = keyClick;
+            document.getElementById('btn22').onclick = keyClick;
+            document.getElementById('btn23').onclick = keyClick;
+            document.getElementById('btn24').onclick = keyClick;
+            document.getElementById('btn25').onclick = keyClick;
+            document.getElementById('btn26').onclick = keyClick;
+            document.getElementById('btn27').onclick = keyClick;
+            document.getElementById('btn28').onclick = keyClick;
+            document.getElementById('btn29').onclick = keyClick;
+            document.getElementById('btn30').onclick = keyClick;
+
+            ////////////////// PREPARAZIONE DATI PER L'INVIO CON POST //////////////////
+            form.onchange = function (e) {
+                // collect the form data while iterating over the inputs
+                var data = {};
+                for (var i = 0, ii = form.length; i < ii; ++i) {
+                    var input = form[i];
+                    if (input.name != "afterpost" && input.name != "sub" && input.id != "btnpostdata") {
+                            data[input.name] = clearString(input.value);
+                    }
+                }
+                resdata.value = JSON.stringify(data);
+            }
+
+            form.onsubmit = function (e) {
+                // stop the regular form submission
+                e.preventDefault();
+                // check if a button is selected
+                resdata.setAttribute("name",  btnId);
+                 if(resdata.name == '') {
+                    document.querySelector('#btnId').innerHTML = "<b style=\"color:red;\"> <--- Please choose a button to associate with the command</b>";
+                    console.log("Error: button not selected");
+                    return;
+                }
+                
+                // collect the form data while iterating over the inputs
+                var data = {};
+                for (var i = 0, ii = form.length; i < ii; ++i) {
+                    var input = form[i];
+                    if (input.name != "afterpost" && input.name != "sub" && input.id != "btnpostdata") {
+                            data[input.name] = clearString(input.value);
+                            input.setAttribute("disabled", true);
+                    }
+                }
+                //console.log(JSON.stringify(data));
+                
+                // do una pulita ad eventuali errori di battitura...
+                // strippo le virgole agli estremi
+                
+                resdata.value = clearString(JSON.stringify(data));
+                
+                console.log(resdata.name+":"+resdata.value);
+                
+                //return true;
+                form.submit();
+                
+            };
+            ////////////////////////////////////////////////////////////////////////////////////
+            
+            
+        }
+        
+        
+        // Gestisce il click sui tasti del telecomando, anche in modalità Edit
+        function keyClick( v = 'false' ){ // value
+            //console.log("event id target -----> "+e.target.id);
+            //console.log( document.getElementById(e.target.id).getAttribute('data-action') );
+            //console.log("V value -----> "+v);
+            if(isEdit) { // EDIT MODE
+            // NOTE escludere tasti power e prova comando
+                //console.log("Edit mode: pressed ");
+                //console.log(this); // NOTE: power button has undefined id
+                // clear class "selected" from every button
+                var buttons = document.querySelectorAll('#keyboard [id^=btn]');
+                for(var i in buttons){
+                     if(buttons[i].id){
+                        buttons[i].classList.remove("selected");
+                        //console.log(e);
+                    }
+                }
+                
+                if(v == 'keyPower') return false;
+                
+                this.classList.add("selected");
+                // riporto i valori nome,sequenza e colore del tasto dal css nei campi del form
+                btnId = this.id;
+                btnNa = this.text;
+                btnSe = this.getAttribute('data-action');
+                btnCo = function(e) {
+                  if(e.classList.contains("btn--red")){
+                    return "r";
+                  } else if(e.classList.contains("btn--green")){
+                    return "g";
+                  } else if(e.classList.contains("btn--blue")){
+                    return "b";
+                  } else if(e.classList.contains("btn--yellow")){
+                    return "y";
+                  } else if(e.classList.contains("btn--grey")){
+                    return "e";
+                  }
+                };
+                // id
+                document.querySelector('#btnId').innerText = " "+btnId;
+                // name
+                document.querySelector('#bn').value = btnNa;
+                // command sequence
+                document.querySelector('#cs').value = btnSe;
+                // color
+                document.querySelector('#bc').value = btnCo(this);
+                
+                return false; // inibisce il funzionamento dell'azione onclick assegnata via json
+            
+            // fine EDIT MODE 
+            } else {
+                //console.log(v);
+                //v = document.getElementById(this.id).getAttribute('data-action');
+                //
+                if( v == 'keyPower' ) { // KEY POWER
+                  // v has valid value
+                } else {
+                  v = this.getAttribute('data-action');
+                }
+                
+                microAjax("/act?actions=keySetValue&value="+v, function(res) {
+                  console.log("res:"+res);
+                });
+              
+            }
+            return false;
+        }
+        
+        // ENABLE EDITOR/EDIT MODE
+        function toggleEditMode(){
+          var buttons = document.querySelectorAll('#keyboard [id^=btn]');
+          if(isEdit){
+            // disable edit mode
+            isEdit = false;
+            document.querySelector('#toggleEditBtn').classList.remove("btn--red");
+            document.querySelector('#toggleEditBtn').classList.add("btn--grey");
+            document.querySelector('#editor').classList.add("hidden");
+            document.querySelector('#btnId').innerText = "";
+            document.querySelector('#bn').value = "";
+            document.querySelector('#cs').value = "";
+            document.querySelector('#bc').value = "";
+            document.querySelector('#btnpostdata').value = "";
+            for(var i in buttons){
+              if( buttons[i].id != undefined && buttons[i].getAttribute('data-action') == "") {
+                // mi trovo in un tasto a cui non sono stati assegnati comandi via json ( data-action == "" )
+                buttons[i].classList.add("hidden");
+                //console.log(buttons[i].id);
+              } 
+              // rimuovo una eventuale classe "selected" dai tasti
+              buttons[i].classList.remove("selected");
+            }
+          } else {
+            // enable edit mode
+            isEdit = true;
+            document.querySelector('#toggleEditBtn').classList.remove("btn--grey");
+            document.querySelector('#toggleEditBtn').classList.add("btn--red");
+            document.querySelector('#editor').classList.remove("hidden");
+            for(var i in buttons){
+              if( buttons[i].id && buttons[i].classList.contains("hidden") ){
+                //console.log(buttons[i].id);
+                buttons[i].classList.remove("hidden");
+              } else if( buttons[i].id != undefined ) {
+                // mi trovo in un tasto visibile, dato che di default via html i tasti sono tutti hidden
+                // questo significa che il tasto in questione ha degli attributi assegnati leggendo json
+              }
+            }
+          }
+            
+        }
+        
+        // PROMPT/TEST COMMAND SEQUENCE
+        function testSeq(){
+          v = prompt("Inserire il numero del canale o valori multipli (key) separati da virgola", document.querySelector('#cs').value != "" ? document.querySelector('#cs').value : 'keyChannelUp,keyChannelDown');
+          if (v === "") {
+              // user pressed OK, but the input field was empty
+              console.log("user pressed OK, but the input field was empty");
+              return;
+          } else if(v) {
+              // user typed something and hit OK
+          } else {
+              // user hit cancel
+              console.log("user hit cancel");
+              return;
+          }
+          microAjax("/act?actions=keySetValue&value="+v, function(res) {
+            console.log("res:"+res);
+          });
+        }
+        
+        function clearString(s){
+            var ret = s.replace(/(^[,\s]+)|([,\s]+$)/g, ''); // trim the leading and trailing comma or whitespace
+            //console.log("RET: "+ret);
+            return ret;
+        }
+        
+        
+</script>
+</body>
+</html>
