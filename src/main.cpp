@@ -122,7 +122,7 @@ void setup() {
     // Serial.print( (int) w, HEX);  Serial.print("  ");
     // Serial.printf("%02X", w);
     crPrintHEX(w,6);
-    Serial.println();
+    Serial.println(); 
   }
 
   //irsend.begin(); // Start the IR LED, defined in PhilipsRC6Remote::init
