@@ -9,9 +9,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Philips TV Remote custom</title>
 	<link rel="shortcut icon" sizes="156x138" href="icon.png">
-	
+
 	<style>
-	
+
 	label
         {
 /*             float: right; */
@@ -21,14 +21,14 @@
         {
             display:block;
         }
-	
+
 	</style>
-	
+
 </head>
 <body>
   <strong>Philips TV Remote custom</strong>
   <hr>
-  
+
   <section id="keyboard">
   	<div class="wrapper">
   		<br>
@@ -88,12 +88,12 @@
   	</div>
   </section>
 	<hr>
-	
+
 	<div class="toggleEdit">
     <a href="#" onclick="toggleEditMode();return false;" id="toggleEditBtn" class="btn btn--m btn--grey" style="width:128px; display:inline-block;">Add/Edit</a>
     <span id="btnId"></span>
   </div>
-  
+
   <section id="editor" class="hidden">
   	<div class="wrapper">
       <form action="/pconfig" method="post" id="keydata">
@@ -106,12 +106,69 @@
           <br>
           <label for="cs">Channel number or key sequence</label>
           <input type="text" id="cs" name="s" value="" pattern="[0-9A-Za-z,]+">
-          <span style="font-size: 11px;">leave blank to hide button</span>
+          <span style="font-size: 11px;">leave blank to hide button. Click <a href="#" onclick="document.getElementById('clist').classList.remove('cmdList');return false;">here</a> to show available commands</span>
+					<div id="clist" class="cmdList">
+						<span style="font-size: 11px;">Available commands ordered as on the original remote control. The number keys can also be written using the number directly, example 2 instead of key_2 or 527 instead of key_5, key_2, key_7</span>
+						<ul style="font-size: 11px; list-style: none;">
+							<li>keyPower</li>
+							<li>keyRewind   (equals to a long key press. If tv: move to prev channel)</li>
+							<li>keyRewindAlt   (equals to a short key press. If tv: check if usb disk is connected, otherwise prints a message to tv)</li>
+							<li>keyForward  (equals to a long key press. If tv: move to next channel)</li>
+							<li>keyForwardAlt   (equals to a short key press. If tv: check if usb disk is connected, otherwise prints a message to tv)</li>
+							<li>keyStop</li>
+							<li>keyPause</li>
+							<li>keyRecord</li>
+							<li>keyPlay</li>
+							<li>keyTvGuide</li>
+							<li>keySetup</li>
+							<li>keyFormat</li>
+							<li>keySources</li>
+							<li>keyHome</li>
+							<li>keyExit</li>
+							<li>keyRed</li>
+							<li>keyGreen</li>
+							<li>keyYellow</li>
+							<li>keyBlue</li>
+							<li>keyInfo</li>
+							<li>keyUp</li>
+							<li>keyOptions</li>
+							<li>keyLeft</li>
+							<li>keyOk</li>
+							<li>keyRight</li>
+							<li>keyBack</li>
+							<li>keyDown</li>
+							<li>keyList</li>
+							<li>keyVolumeUp</li>
+							<li>keyVolumeDown</li>
+							<li>keyVolumeMute</li>
+							<li>keyChannelUp</li>
+							<li>keyChannelDown</li>
+							<li>key1</li>
+							<li>key2</li>
+							<li>key3</li>
+							<li>key4</li>
+							<li>key5</li>
+							<li>key6</li>
+							<li>key7</li>
+							<li>key8</li>
+							<li>key9</li>
+							<li>keySubtitle</li>
+							<li>key0</li>
+							<li>keyText</li>
+						</ul>
+					</div>
         </div>
         <div>
           <br>
           <label for="bc">Button Color</label>
           <input type="text" id="bc" name="c" value="" required minlength="1" maxlength="1" pattern="r|g|b|y|e">
+					<div style="margin-top: 4px;">
+						<a href="#" onclick="document.getElementById('bc').value='r';return false;" class="btn btn--s btn--red" style="width:30px; display:inline-block;">r</a>
+						<a href="#" onclick="document.getElementById('bc').value='g';return false;" class="btn btn--s btn--green" style="width:30px; display:inline-block;">g</a>
+						<a href="#" onclick="document.getElementById('bc').value='b';return false;" class="btn btn--s btn--blue" style="width:30px; display:inline-block;">b</a>
+						<a href="#" onclick="document.getElementById('bc').value='e';return false;" class="btn btn--s btn--grey" style="width:30px; display:inline-block;">e</a>
+						<a href="#" onclick="document.getElementById('bc').value='y';return false;" class="btn btn--s btn--yellow" style="width:30px; display:inline-block;">y</a>
+					</div>
         </div>
         <div>
           <br>
@@ -124,20 +181,27 @@
       </form>
   		<ul style="font-size: 11px;">
   			<li>Button Name: characters, numbers, dash and space allowed, min length 3 characters max 12.</li>
-  			<li>Channel number or key sequence: un canale o una sequenza di azioni codificata tramite i comandi "keyXXX"</li>
-  			<li>Button Color: il colore del tasto a scelta tra r/g/b/e e sta per grigio</li>
+  			<li>Channel number or key sequence: a number or commands "keyXXX"</li>
+  			<li>Button Color: choose between r/g/b/e/y (red/green/blue/grey/yellow)</li>
   		</ul>
   	</div>
   </section>
 	<hr>
-	
+
 	<div class="wrapper">
 		<br>
 		<a href="#" onclick="testSeq();return false;" class="btn btn--m btn--grey">test comando</a>
 		<br>
 	</div>
-	
-  <div style="font-size: 11px;">suggerimento: puoi usare la lettera s per aggiungere una pausa di circa 0.3 secondi tra i comandi, es: <span style="color:red;">keyChannelUp,s,s,s,s,s,s,s,s,s,s,keyChannelDown</span> s x 10 = circa 3 secondi di pausa</div>
+
+  <div style="font-size: 11px;">tip: you can use the letter "s" to add a pause of about 0.3 seconds between the commands e.g.: <span style="color:red;">keyChannelUp,s,s,s,s,s,s,s,s,s,s,keyChannelDown</span> s x 10 = about 3 second pause</div>
+
+	<hr>
+
+	<div class="otherPrefs">
+		<a href="#" onclick="toggleNightDay();return false;" id="toggleNightDayBtn" class="btn btn--s" style="width:128px; display:inline-block;">Toggle Night/Day</a>
+		<a href="#" onclick="alert('todo');return false;" id="dumpKeyboardMapBtn" class="btn btn--s btn--grey" style="width:128px; display:inline-block;">dump Keyboard Map</a>
+	</div>
 
 <script>
 	window.onload = function() {
@@ -219,14 +283,16 @@
 			document.getElementsByTagName("head")[0].appendChild(a)
 		}
 	}
-        
-        
+
+
         function initUI(){
             // definisco una variablile globale bool isEdit
             isEdit = false;
             // globale id del tasto da creare/modificare
             btnId = '';
-            //
+            // theme day/night mode
+						isDay = true;
+						//
             form = document.getElementById("keydata");
             resdata = document.getElementById("btnpostdata");
             //
@@ -284,7 +350,7 @@
                     console.log("Error: button not selected");
                     return;
                 }
-                
+
                 // collect the form data while iterating over the inputs
                 var data = {};
                 for (var i = 0, ii = form.length; i < ii; ++i) {
@@ -295,24 +361,24 @@
                     }
                 }
                 //console.log(JSON.stringify(data));
-                
+
                 // do una pulita ad eventuali errori di battitura...
                 // strippo le virgole agli estremi
-                
+
                 resdata.value = clearString(JSON.stringify(data));
-                
+
                 console.log(resdata.name+":"+resdata.value);
-                
+
                 //return true;
                 form.submit();
-                
+
             };
             ////////////////////////////////////////////////////////////////////////////////////
-            
-            
+
+
         }
-        
-        
+
+
         // Gestisce il click sui tasti del telecomando, anche in modalità Edit
         function keyClick( v = 'false' ){ // value
             //console.log("event id target -----> "+e.target.id);
@@ -330,9 +396,9 @@
                         //console.log(e);
                     }
                 }
-                
+
                 if(v == 'keyPower') return false;
-                
+
                 this.classList.add("selected");
                 // riporto i valori nome,sequenza e colore del tasto dal css nei campi del form
                 btnId = this.id;
@@ -359,10 +425,10 @@
                 document.querySelector('#cs').value = btnSe;
                 // color
                 document.querySelector('#bc').value = btnCo(this);
-                
+
                 return false; // inibisce il funzionamento dell'azione onclick assegnata via json
-            
-            // fine EDIT MODE 
+
+            // fine EDIT MODE
             } else {
                 //console.log(v);
                 //v = document.getElementById(this.id).getAttribute('data-action');
@@ -372,15 +438,15 @@
                 } else {
                   v = this.getAttribute('data-action');
                 }
-                
+
                 microAjax("/act?actions=keySetValue&value="+v, function(res) {
                   console.log("res:"+res);
                 });
-              
+
             }
             return false;
         }
-        
+
         // ENABLE EDITOR/EDIT MODE
         function toggleEditMode(){
           var buttons = document.querySelectorAll('#keyboard [id^=btn]');
@@ -400,7 +466,7 @@
                 // mi trovo in un tasto a cui non sono stati assegnati comandi via json ( data-action == "" )
                 buttons[i].classList.add("hidden");
                 //console.log(buttons[i].id);
-              } 
+              }
               // rimuovo una eventuale classe "selected" dai tasti
               buttons[i].classList.remove("selected");
             }
@@ -420,9 +486,9 @@
               }
             }
           }
-            
+
         }
-        
+
         // PROMPT/TEST COMMAND SEQUENCE
         function testSeq(){
           v = prompt("Inserire il numero del canale o valori multipli (key) separati da virgola", document.querySelector('#cs').value != "" ? document.querySelector('#cs').value : 'keyChannelUp,keyChannelDown');
@@ -441,14 +507,28 @@
             console.log("res:"+res);
           });
         }
-        
+
+				// TOGGLE NIGHT/DAY MODE
+        function toggleNightDay(){
+					if(isDay){
+						isDay = false;
+						document.querySelector('#toggleNightDayBtn').classList.add("btn--grey");
+						document.body.classList.add("bg--night");
+					} else {
+						// is night
+						isDay = true;
+						document.querySelector('#toggleNightDayBtn').classList.remove("btn--grey");
+						document.body.classList.remove("bg--night");
+					}
+				}
+
         function clearString(s){
             var ret = s.replace(/(^[,\s]+)|([,\s]+$)/g, ''); // trim the leading and trailing comma or whitespace
             //console.log("RET: "+ret);
             return ret;
         }
-        
-        
+
+
 </script>
 </body>
 </html>

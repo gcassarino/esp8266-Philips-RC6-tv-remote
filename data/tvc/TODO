@@ -1,5 +1,1 @@
 - aggiungere in edd/edit la possibilità di salvare tutti i 30 comandi (copia-incolla del dump) e di ri-caricare questi comandi in un secondo tempo 
-- modificare colore contorno tasto selezionato in modalità di edit
-- aggiungere selettore grafico dei possibili colori del tasto
-- modalità giorno/notte (sfondo e testo sullo sfondo, i tasti restano invariati)
-- dropdown con la lista dei comandi

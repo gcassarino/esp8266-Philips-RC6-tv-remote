@@ -18,6 +18,11 @@ hr {
   grid-template-rows: repeat(auto-fit, minmax(20%, 1fr));
 }
 
+.bg--night {
+  background-color: #444444;
+  color: #ffffff;
+}
+
 .btn, .btn:link, .btn:visited {
     display: flex;
     align-items: center;
@@ -162,11 +167,15 @@ th {
     visibility: hidden;
 }
 #keyboard .btn.selected {
-    border: 4px solid red;
+    border: 4px solid #00ffae;
     /*  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='120px'><text x='0' y='15' fill='red' font-size='20' font-family='avenir, helvetica, arial, sans-serif'>EDITING</text></svg>"); */
 }
 
 #editor.hidden {
+  display: none;
+}
+
+.cmdList {
   display: none;
 }
 
