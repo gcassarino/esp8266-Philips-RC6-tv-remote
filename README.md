@@ -1,9 +1,5 @@
 # esp8266-Philips-RC6-tv-remote
-<<<<<<< HEAD
 an implementation of the Philips 22PFT4000/12 tv remote control interface using Javascript and an ESP8266/IRSend as backend.
-=======
-an implementation of the Philips 22PFT4000/12 tv remote control interface using Javascript and an ESP8266/IRSend as backend
->>>>>>> aafcd544b91644429481126cd5f9d37ecdc950de
 
 NOTE: This is currently work in progress.
 
