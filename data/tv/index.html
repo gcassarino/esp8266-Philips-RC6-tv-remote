@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Description" content="TV remote control - ESP8266 v0.6">
+	<meta name="Author" content="Gianluca Cassarino - gcassarino@gmail.com">
+	<meta name="Robots" content="index,follow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>TV Remote - ESP8266</title>
+	<link rel="shortcut icon" sizes="156x138" href="icon.png">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<style>
+  /* JQM TV Remote custom CSS (ex jqm-tv-remote.css) */
+  /* fix mini buttons */
+  .ui-mini {
+    margin: 0.5em 0;
+  }
+  /* custom icons */
+  .ui-icon-fast-forward:after,
+  .ui-icon-play:after,
+  .ui-icon-pause:after,
+  .ui-icon-forward:after,
+  .ui-icon-backward:after,
+  .ui-icon-expand:after,
+  .ui-icon-arrows-alt:after,
+  .ui-icon-arrows-h:after,
+  .ui-icon-eject:after,
+  .ui-icon-stop:after,
+  .ui-icon-circle:after,
+  .ui-icon-desktop:after,
+  .ui-icon-volume-off:after,
+  .ui-icon-indent:after,
+  .ui-icon-sign-out:after,
+  .ui-icon-sign-in:after,
+  .ui-icon-volume-down:after,
+  .ui-icon-volume-up:after
+  {
+    background-position: 5px center;
+    background-size: 14px auto;
+  }
+  .icon-red {
+    color: #ff0000 !important;
+  }
+  .icon-red:after {
+    background-color: #ff0000;
+  }
+  .icon-green {
+    color: #008000 !important;
+  }
+  .icon-green:after {
+    background-color: #008000;
+  }
+  .icon-yellow {
+    color: #FAD70A !important;
+  }
+  .icon-yellow:after {
+    background-color: #FAD70A;
+  }
+  .icon-blue {
+    color: #1B91C4 !important;
+  }
+  .icon-blue:after {
+    background-color: #1B91C4;
+  }
+  /*.ui-btn {
+    font-family: 'Michroma', sans-serif;
+    font-size: 12px;
+  }*/
+  .ui-btn-round {
+    border-radius: 71px;
+    max-width: 130px;
+    padding: 37px;
+  }
+  .ui-btn-round-lg {
+    padding: 52px;
+  }
+  .pad-1 {
+    margin-top: 30px;
+  }
+  .pad-1 .ui-btn {
+    margin-bottom: 0;
+  }
+  .pad-2 {}
+  .pad-3 {
+    margin-top: 30px;
+  }
+  .pad-3 .ui-btn {
+    margin-bottom: 0;
+  }
+  .pad-4 {}
+  .pad-4 .ui-btn {
+    margin-top: 25px;
+  }
+  .pad-5 {}
+  .pad-5 .ui-btn {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  .pad-6 {}
+  .pad-6 .ui-btn {
+    margin-top: 25px;
+  }
+  .pad-7 {}
+  .pad-7 .ui-btn {
+    margin-top: 0;
+  }
+  .pad-8 {}
+  .pad-9 {}
+  .pad-9 .ui-btn {
+    margin-top: 0;
+  }
+  .button-mute {
+    margin-top: 38px;
+  }
+  .button-wrap {
+      /*margin-left: 5px;*/
+      /*margin-right: 12px;*/
+  }
+  .ui-grid-b .ui-block-c .button-wrap {
+    /*margin-right: 0;*/
+  }
+  .ui-block-a, .ui-block-b, .ui-block-c, .ui-block-d, .ui-block-e {
+    padding: 0 3px;
+  }
+  .center {
+      text-align: center;
+  }
+  /*.smaller {
+   font-size: 70%;
+  }*/
+  /* First breakpoint at 480px */
+  @media all and (max-width: 480px){
+  	/*.ui-btn {
+  	  font-family: 'Michroma', sans-serif;
+  	  font-size: 10px;
+  	}*/
+  	.ui-btn-round-lg {
+  	  padding: 28px;
+  	}
+  	.pad-4 .ui-btn {
+  	    margin-top: 8px;
+  	}
+  	.pad-6 .ui-btn {
+  	    margin-top: 8px;
+  	}
+  	.pad-8 .ui-btn {
+  	    margin-top: 0;
+  	}
+  }
+
+	/* (ex icon-pack.css) */
+	/*!
+  * jQuery Mobile Icon Pack - Font Awesome version 1.4.0
+  *
+  * Copyright 2013 Andy Matthews
+  * http://andyMatthews.net
+  * Released under the GPL/MIT license.
+  *
+  */
+  .ui-icon-fast-forward:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M12.556%20460.659q-5.301%205.301-8.929%203.627t-3.627-8.929v-410.714q0-7.254%203.627-8.929t8.929%203.627l198.103%20198.103q2.232%202.232%203.627%205.301v-198.103q0-7.254%203.627-8.929t8.929%203.627l198.103%20198.103q2.232%202.232%203.627%205.301v-189.174q0-7.254%205.301-12.556t12.556-5.301h35.714q7.254%200%2012.556%205.301t5.301%2012.556v392.857q0%207.254-5.301%2012.556t-12.556%205.301h-35.714q-7.254%200-12.556-5.301t-5.301-12.556v-189.174q-1.395%202.79-3.627%205.301l-198.103%20198.103q-5.301%205.301-8.929%203.627t-3.627-8.929v-198.103q-1.395%202.79-3.627%205.301z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-fast-forward:after { background-image: url('png/fast-forward.png'); }
+  .ui-icon-play:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M386.161%20258.649l-370.536%20205.915q-6.417%203.627-11.021%200.837t-4.604-10.044v-410.714q0-7.254%204.604-10.044t11.021%200.837l370.536%20205.915q6.417%203.627%206.417%208.649t-6.417%208.649z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-play:after { background-image: url('png/play.png'); }
+  .ui-icon-pause:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M428.571%2053.571v392.857q0%207.254-5.301%2012.556t-12.556%205.301h-142.857q-7.254%200-12.556-5.301t-5.301-12.556v-392.857q0-7.254%205.301-12.556t12.556-5.301h142.857q7.254%200%2012.556%205.301t5.301%2012.556zM178.571%2053.571v392.857q0%207.254-5.301%2012.556t-12.556%205.301h-142.857q-7.254%200-12.556-5.301t-5.301-12.556v-392.857q0-7.254%205.301-12.556t12.556-5.301h142.857q7.254%200%2012.556%205.301t5.301%2012.556z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-pause:after { background-image: url('png/pause.png'); }
+  .ui-icon-forward:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M12.556%20460.659q-5.301%205.301-8.929%203.627t-3.627-8.929v-410.714q0-7.254%203.627-8.929t8.929%203.627l198.103%20198.103q2.232%202.232%203.627%205.301v-198.103q0-7.254%203.627-8.929t8.929%203.627l198.103%20198.103q5.301%205.301%205.301%2012.556t-5.301%2012.556l-198.103%20198.103q-5.301%205.301-8.929%203.627t-3.627-8.929v-198.103q-1.395%202.79-3.627%205.301z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-forward:after { background-image: url('png/forward.png'); }
+  .ui-icon-backward:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M451.73%2039.341q5.301-5.301%208.929-3.627t3.627%208.929v410.714q0%207.254-3.627%208.929t-8.929-3.627l-198.103-198.103q-2.232-2.511-3.627-5.301v198.103q0%207.254-3.627%208.929t-8.929-3.627l-198.103-198.103q-5.301-5.301-5.301-12.556t5.301-12.556l198.103-198.103q5.301-5.301%208.929-3.627t3.627%208.929v198.103q1.395-3.069%203.627-5.301z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-backward:after { background-image: url('png/backward.png'); }
+  .ui-icon-expand:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M210.659%20294.643q0%203.627-2.79%206.417l-92.634%2092.634%2040.179%2040.179q5.301%205.301%205.301%2012.556t-5.301%2012.556-12.556%205.301h-125q-7.254%200-12.556-5.301t-5.301-12.556v-125q0-7.254%205.301-12.556t12.556-5.301%2012.556%205.301l40.179%2040.179%2092.634-92.634q2.79-2.79%206.417-2.79t6.417%202.79l31.808%2031.808q2.79%202.79%202.79%206.417zM428.571%2053.571v125q0%207.254-5.301%2012.556t-12.556%205.301-12.556-5.301l-40.179-40.179-92.634%2092.634q-2.79%202.79-6.417%202.79t-6.417-2.79l-31.808-31.808q-2.79-2.79-2.79-6.417t2.79-6.417l92.634-92.634-40.179-40.179q-5.301-5.301-5.301-12.556t5.301-12.556%2012.556-5.301h125q7.254%200%2012.556%205.301t5.301%2012.556z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-expand:after { background-image: url('png/expand.png'); }
+  .ui-icon-arrows-alt:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M357.98%20150.949l-99.051%2099.051%2099.051%2099.051%2040.179-40.179q8.091-8.649%2019.531-3.906%2010.882%204.743%2010.882%2016.462v125q0%207.254-5.301%2012.556t-12.556%205.301h-125q-11.719%200-16.462-11.161-4.743-10.882%203.906-19.252l40.179-40.179-99.051-99.051-99.051%2099.051%2040.179%2040.179q8.649%208.371%203.906%2019.252-4.743%2011.161-16.462%2011.161h-125q-7.254%200-12.556-5.301t-5.301-12.556v-125q0-11.719%2011.161-16.462%2010.882-4.743%2019.252%203.906l40.179%2040.179%2099.051-99.051-99.051-99.051-40.179%2040.179q-5.301%205.301-12.556%205.301-3.348%200-6.696-1.395-11.161-4.743-11.161-16.462v-125q0-7.254%205.301-12.556t12.556-5.301h125q11.719%200%2016.462%2011.161%204.743%2010.882-3.906%2019.252l-40.179%2040.179%2099.051%2099.051%2099.051-99.051-40.179-40.179q-8.649-8.371-3.906-19.252%204.743-11.161%2016.462-11.161h125q7.254%200%2012.556%205.301t5.301%2012.556v125q0%2011.719-10.882%2016.462-3.627%201.395-6.976%201.395-7.254%200-12.556-5.301z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-arrows-alt:after { background-image: url('png/arrows-alt.png'); }
+  .ui-icon-arrows-h:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M500%20250q0%207.254-5.301%2012.556l-71.429%2071.429q-5.301%205.301-12.556%205.301t-12.556-5.301-5.301-12.556v-35.714h-285.714v35.714q0%207.254-5.301%2012.556t-12.556%205.301-12.556-5.301l-71.429-71.429q-5.301-5.301-5.301-12.556t5.301-12.556l71.429-71.429q5.301-5.301%2012.556-5.301t12.556%205.301%205.301%2012.556v35.714h285.714v-35.714q0-7.254%205.301-12.556t12.556-5.301%2012.556%205.301l71.429%2071.429q5.301%205.301%205.301%2012.556z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-arrows-h:after { background-image: url('png/arrows-h.png'); }
+  .ui-icon-eject:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M3.906%20273.159l198.103-198.103q5.301-5.301%2012.556-5.301t12.556%205.301l198.103%20198.103q5.301%205.301%203.627%208.929t-8.929%203.627h-410.714q-7.254%200-8.929-3.627t3.627-8.929zM410.993%20428.571h-392.857q-7.254%200-12.556-5.301t-5.301-12.556v-71.429q0-7.254%205.301-12.556t12.556-5.301h392.857q7.254%200%2012.556%205.301t5.301%2012.556v71.429q0%207.254-5.301%2012.556t-12.556%205.301z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-eject:after { background-image: url('png/eject.png'); }
+  .ui-icon-stop:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M428.571%2053.571v392.857q0%207.254-5.301%2012.556t-12.556%205.301h-392.857q-7.254%200-12.556-5.301t-5.301-12.556v-392.857q0-7.254%205.301-12.556t12.556-5.301h392.857q7.254%200%2012.556%205.301t5.301%2012.556z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-stop:after { background-image: url('png/stop.png'); }
+  .ui-icon-circle:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M428.571%20250q0%2058.315-28.739%20107.562t-77.985%2077.985-107.562%2028.739-107.562-28.739-77.985-77.985-28.739-107.562%2028.739-107.562%2077.985-77.985%20107.562-28.739%20107.562%2028.739%2077.985%2077.985%2028.739%20107.562z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-circle:after { background-image: url('png/circle.png'); }
+  .ui-icon-desktop:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M500%20276.786v-232.143q0-3.627-2.651-6.278t-6.278-2.651h-446.429q-3.627%200-6.278%202.651t-2.651%206.278v232.143q0%203.627%202.651%206.278t6.278%202.651h446.429q3.627%200%206.278-2.651t2.651-6.278zM535.714%2044.643v303.571q0%2018.415-13.114%2031.529t-31.529%2013.114h-151.786q0%2010.324%204.464%2021.624t8.929%2019.81%204.464%2012.137q0%207.254-5.301%2012.556t-12.556%205.301h-142.857q-7.254%200-12.556-5.301t-5.301-12.556q0-3.906%204.464-12.277t8.929-19.531%204.464-21.763h-151.786q-18.415%200-31.529-13.114t-13.114-31.529v-303.571q0-18.415%2013.114-31.529t31.529-13.114h446.429q18.415%200%2031.529%2013.114t13.114%2031.529z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-desktop:after { background-image: url('png/desktop.png'); }
+  .ui-icon-volume-off:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M214.286%2098.214v303.571q0%207.254-5.301%2012.556t-12.556%205.301-12.556-5.301l-92.913-92.913h-73.103q-7.254%200-12.556-5.301t-5.301-12.556v-107.143q0-7.254%205.301-12.556t12.556-5.301h73.103l92.913-92.913q5.301-5.301%2012.556-5.301t12.556%205.301%205.301%2012.556z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-volume-off:after { background-image: url('png/volume-off.png'); }
+  .ui-icon-indent:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M98.214%20232.143q0%203.906-2.511%206.417l-80.357%2080.357q-2.511%202.511-6.417%202.511-3.627%200-6.278-2.651t-2.651-6.278v-160.714q0-3.627%202.651-6.278t6.278-2.651q3.906%200%206.417%202.511l80.357%2080.357q2.511%202.511%202.511%206.417zM500%20366.071v53.571q0%203.627-2.651%206.278t-6.278%202.651h-482.143q-3.627%200-6.278-2.651t-2.651-6.278v-53.571q0-3.627%202.651-6.278t6.278-2.651h482.143q3.627%200%206.278%202.651t2.651%206.278zM500%20258.929v53.571q0%203.627-2.651%206.278t-6.278%202.651h-303.571q-3.627%200-6.278-2.651t-2.651-6.278v-53.571q0-3.627%202.651-6.278t6.278-2.651h303.571q3.627%200%206.278%202.651t2.651%206.278zM500%20151.786v53.571q0%203.627-2.651%206.278t-6.278%202.651h-303.571q-3.627%200-6.278-2.651t-2.651-6.278v-53.571q0-3.627%202.651-6.278t6.278-2.651h303.571q3.627%200%206.278%202.651t2.651%206.278zM500%2044.643v53.571q0%203.627-2.651%206.278t-6.278%202.651h-482.143q-3.627%200-6.278-2.651t-2.651-6.278v-53.571q0-3.627%202.651-6.278t6.278-2.651h482.143q3.627%200%206.278%202.651t2.651%206.278z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-indent:after { background-image: url('png/indent.png'); }
+  .ui-icon-sign-out:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M330.357%20250q0%207.254-5.301%2012.556l-151.786%20151.786q-5.301%205.301-12.556%205.301t-12.556-5.301-5.301-12.556v-80.357h-125q-7.254%200-12.556-5.301t-5.301-12.556v-107.143q0-7.254%205.301-12.556t12.556-5.301h125v-80.357q0-7.254%205.301-12.556t12.556-5.301%2012.556%205.301l151.786%20151.786q5.301%205.301%205.301%2012.556zM428.571%20151.786v196.429q0%2033.203-23.577%2056.78t-56.78%2023.577h-89.286q-3.627%200-6.278-2.651t-2.651-6.278q0-1.116-0.279-5.581t-0.14-7.394%200.837-6.557%202.79-5.441%205.72-1.813h89.286q18.415%200%2031.529-13.114t13.114-31.529v-196.429q0-18.415-13.114-31.529t-31.529-13.114h-87.054t-3.208-0.279-3.208-0.837-2.232-1.535-1.953-2.511-0.558-3.767q0-1.116-0.279-5.581t-0.14-7.394%200.837-6.557%202.79-5.441%205.72-1.813h89.286q33.203%200%2056.78%2023.577t23.577%2056.78z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-sign-out:after { background-image: url('png/sign-out.png'); }
+  .ui-icon-sign-in:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M178.571%20401.786q0%201.116%200.279%205.581t0.14%207.394-0.837%206.557-2.79%205.441-5.72%201.813h-89.286q-33.203%200-56.78-23.577t-23.577-56.78v-196.429q0-33.203%2023.577-56.78t56.78-23.577h89.286q3.627%200%206.278%202.651t2.651%206.278q0%201.116%200.279%205.581t0.14%207.394-0.837%206.557-2.79%205.441-5.72%201.813h-89.286q-18.415%200-31.529%2013.114t-13.114%2031.529v196.429q0%2018.415%2013.114%2031.529t31.529%2013.114h87.054t3.208%200.279%203.208%200.837%202.232%201.535%201.953%202.511%200.558%203.767zM437.5%20250q0%207.254-5.301%2012.556l-151.786%20151.786q-5.301%205.301-12.556%205.301t-12.556-5.301-5.301-12.556v-80.357h-125q-7.254%200-12.556-5.301t-5.301-12.556v-107.143q0-7.254%205.301-12.556t12.556-5.301h125v-80.357q0-7.254%205.301-12.556t12.556-5.301%2012.556%205.301l151.786%20151.786q5.301%205.301%205.301%2012.556z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-sign-in:after { background-image: url('png/sign-in.png'); }
+  .ui-icon-volume-down:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M214.286%2098.214v303.571q0%207.254-5.301%2012.556t-12.556%205.301-12.556-5.301l-92.913-92.913h-73.103q-7.254%200-12.556-5.301t-5.301-12.556v-107.143q0-7.254%205.301-12.556t12.556-5.301h73.103l92.913-92.913q5.301-5.301%2012.556-5.301t12.556%205.301%205.301%2012.556zM321.429%20250q0%2021.206-11.858%2039.481t-31.39%2026.088q-2.79%201.395-6.976%201.395-7.254%200-12.556-5.162t-5.301-12.695q0-5.859%203.348-9.905t8.091-6.976%209.487-6.417%208.091-9.905%203.348-15.904-3.348-15.904-8.091-9.905-9.487-6.417-8.091-6.976-3.348-9.905q0-7.534%205.301-12.695t12.556-5.162q4.185%200%206.976%201.395%2019.531%207.534%2031.39%2025.949t11.858%2039.621z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-volume-down:after { background-image: url('png/volume-down.png'); }
+  .ui-icon-volume-up:after { background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%20Tiny%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11-tiny.dtd%22%3E%3Csvg%20version%3D%221.1%22%20baseProfile%3D%22tiny%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2216px%22%20height%3D%2216px%22%20viewBox%3D%220%200%20500%20500%22%20xml%3Aspace%3D%22preserve%22%3E%20%3Cpath%20d%3D%22M214.286%2098.214v303.571q0%207.254-5.301%2012.556t-12.556%205.301-12.556-5.301l-92.913-92.913h-73.103q-7.254%200-12.556-5.301t-5.301-12.556v-107.143q0-7.254%205.301-12.556t12.556-5.301h73.103l92.913-92.913q5.301-5.301%2012.556-5.301t12.556%205.301%205.301%2012.556zM321.429%20250q0%2021.206-11.858%2039.481t-31.39%2026.088q-2.79%201.395-6.976%201.395-7.254%200-12.556-5.162t-5.301-12.695q0-5.859%203.348-9.905t8.091-6.976%209.487-6.417%208.091-9.905%203.348-15.904-3.348-15.904-8.091-9.905-9.487-6.417-8.091-6.976-3.348-9.905q0-7.534%205.301-12.695t12.556-5.162q4.185%200%206.976%201.395%2019.531%207.534%2031.39%2025.949t11.858%2039.621zM392.857%20250q0%2042.69-23.716%2078.823t-62.779%2052.595q-3.627%201.395-6.976%201.395-7.534%200-12.835-5.301t-5.301-12.556q0-10.882%2010.882-16.462%2015.625-8.091%2021.206-12.277%2020.647-15.067%2032.227-37.807t11.579-48.41-11.579-48.41-32.227-37.807q-5.581-4.185-21.206-12.277-10.882-5.581-10.882-16.462%200-7.254%205.301-12.556t12.556-5.301q3.627%200%207.254%201.395%2039.063%2016.462%2062.779%2052.595t23.716%2078.823zM464.286%20250q0%2064.174-35.435%20117.885t-94.308%2079.102q-3.627%201.395-7.254%201.395-7.254%200-12.556-5.301t-5.301-12.556q0-10.044%2010.882-16.462%201.953-1.116%206.278-2.93t6.278-2.93q12.835-6.976%2022.879-14.23%2034.319-25.391%2053.571-63.337t19.252-80.636-19.252-80.636-53.571-63.337q-10.044-7.254-22.879-14.23-1.953-1.116-6.278-2.93t-6.278-2.93q-10.882-6.417-10.882-16.462%200-7.254%205.301-12.556t12.556-5.301q3.627%200%207.254%201.395%2058.873%2025.391%2094.308%2079.102t35.435%20117.885z%22%20fill%3D%22%23ffffff%22%20%2F%3E%3C%2Fsvg%3E') }
+  .ui-nosvg .ui-icon-volume-up:after { background-image: url('png/volume-up.png'); }
+	</style>
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+  <div data-role="page" data-theme="b">
+
+    <div data-role="header">
+      <h1><small>PHILIPS TV 22PFT4000/12</small></h1>
+    </div>
+
+    <div data-role="main" class="ui-content">
+
+	<div data-role="collapsible" data-collapsed="false">
+	  <h3>Parte superiore</h3>
+	  <div class="ui-grid-d center">
+	      <div class="ui-block-a"></div>
+	      <div class="ui-block-b"></div>
+	      <div class="ui-block-c"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-icon-power ui-btn-icon-notext ui-btn-inline icon-red" data-action="keyPower">Power button</a></div>
+	      <div class="ui-block-d"></div>
+	      <div class="ui-block-e"></div>
+	  </div>
+	  <div class="ui-grid-b">
+	    <div class="ui-block-a"><div class="button-wrap"><button class="ui-btn ui-icon-stop ui-btn-icon-top ui-shadow ui-corner-all ui-mini" data-action="keyStop"><small>stop</small></button></div></div>
+	    <div class="ui-block-b"><div class="button-wrap"><button class="ui-btn ui-icon-pause ui-btn-icon-top ui-shadow ui-corner-all ui-mini" data-action="keyPause"><small>pause</small></button></div></div>
+	    <div class="ui-block-c"><div class="button-wrap"><button class="ui-btn ui-icon-circle ui-btn-icon-top ui-shadow ui-corner-all ui-mini icon-red" data-action="keyRecord"><small>record</small></button></div></div>
+	  </div>
+	  <div class="ui-grid-b">
+	    <div class="ui-block-a"><div class="button-wrap"><button class="ui-btn ui-icon-backward ui-btn-icon-top ui-shadow ui-corner-all ui-mini" data-action="keyRewindAlt"><small>rewind</small></button></div></div>
+	    <div class="ui-block-b"><div class="button-wrap"><button class="ui-btn ui-icon-play ui-btn-icon-top ui-shadow ui-corner-all ui-mini" data-action="keyPlay"><small>play</small></button></div></div>
+	    <div class="ui-block-c"><div class="button-wrap"><button class="ui-btn ui-icon-forward ui-btn-icon-top ui-shadow ui-corner-all ui-mini" data-action="keyForwardAlt"><small>forward</small></button></div></div>
+	  </div>
+	  <div class="ui-grid-b">
+	    <div class="ui-block-a"><div class="button-wrap"><button class="ui-btn ui-icon-bullets ui-btn-icon-top ui-shadow ui-corner-all ui-mini" data-action="keyTvGuide">TV GUIDE</button></div></div>
+	    <div class="ui-block-b"><div class="button-wrap"><button class="ui-btn ui-icon-gear ui-btn-icon-top ui-shadow ui-corner-all ui-mini" data-action="keySetup">SETUP</button></div></div>
+	    <div class="ui-block-c"><div class="button-wrap"><button class="ui-btn ui-icon-bullets ui-btn-icon-top ui-shadow ui-corner-all ui-mini" data-action="keyFormat">FORMAT</button></div></div>
+	  </div>
+	</div>
+
+	<div data-role="collapsible" data-collapsed="false">
+	  <h3>Parte centrale</h3>
+	  <div class="ui-grid-b">
+	    <div class="ui-block-a"><div class="button-wrap"><button class="ui-btn ui-icon-sign-in ui-btn-icon-top ui-shadow ui-corner-all" data-action="keySources">SOURCES</button></div></div>
+	    <div class="ui-block-b"><div class="button-wrap"><button class="ui-btn ui-icon-home ui-btn-icon-top ui-shadow ui-corner-all" data-action="keyHome">HOME</button></div></div>
+	    <div class="ui-block-c"><div class="button-wrap"><button class="ui-btn ui-icon-desktop ui-btn-icon-top ui-shadow ui-corner-all" data-action="keyExit">EXIT</button></div></div>
+	  </div>
+	  <div class="ui-grid-c">
+	    <div class="ui-block-a"><div class="button-wrap"><button class="ui-btn ui-icon-minus ui-btn-icon-top ui-shadow ui-corner-all ui-mini icon-red" data-action="keyRed"><small>red</small></button></div></div>
+	    <div class="ui-block-b"><div class="button-wrap"><button class="ui-btn ui-icon-minus ui-btn-icon-top ui-shadow ui-corner-all ui-mini icon-green" data-action="keyGreen"><small>green</small></button></div></div>
+	    <div class="ui-block-c"><div class="button-wrap"><button class="ui-btn ui-icon-minus ui-btn-icon-top ui-shadow ui-corner-all ui-mini icon-yellow" data-action="keyYellow"><small>yellow</small></button></div></div>
+	    <div class="ui-block-c"><div class="button-wrap"><button class="ui-btn ui-icon-minus ui-btn-icon-top ui-shadow ui-corner-all ui-mini icon-blue" data-action="keyBlue"><small>blue</small></button></div></div>
+	  </div>
+	  <hr>
+	  <fieldset class="ui-grid-b ui-navpad">
+	    <div class="ui-block-a"><div class="button-wrap pad-1"><button class="ui-btn ui-icon-info ui-btn-icon-top  ui-shadow ui-corner-all ui-mini" data-action="keyInfo">INFO</button></div></div>
+	    <div class="ui-block-b"><div class="button-wrap pad-2"><button class="ui-btn ui-btn-a ui-icon-carat-u ui-btn-icon-top  ui-shadow ui-corner-all" data-action="keyUp"><small>UP</small></button></div></div>
+	    <div class="ui-block-c"><div class="button-wrap pad-3"><button class="ui-btn ui-icon-bullets ui-btn-icon-top  ui-shadow ui-corner-all ui-mini" data-action="keyOptions">OPTIONS</button></div></div>
+	    <div class="ui-block-a"><div class="button-wrap pad-4"><button class="ui-btn ui-btn-a ui-icon-carat-l ui-btn-icon-top  ui-shadow ui-corner-all" data-action="keyLeft"><small>LEFT</small></button></div></div>
+	    <div class="ui-block-b center"><div class="button-wrap pad-5"><button class="ui-btn ui-btn-a ui-shadow ui-btn-round ui-btn-round-lg ui-btn-inline" data-action="keyOk">OK</button></div></div>
+	    <div class="ui-block-c"><div class="button-wrap pad-6"><button class="ui-btn ui-btn-a ui-icon-carat-r ui-btn-icon-top  ui-shadow ui-corner-all" data-action="keyRight"><small>RIGHT</small></button></div></div>
+	    <div class="ui-block-a"><div class="button-wrap pad-7"><button class="ui-btn ui-icon-back ui-btn-icon-top  ui-shadow ui-corner-all ui-mini" data-action="keyBack">BACK</button></div></div>
+	    <div class="ui-block-b"><div class="button-wrap pad-8"><button class="ui-btn ui-btn-a ui-icon-carat-d ui-btn-icon-top  ui-shadow ui-corner-all" data-action="keyDown"><small>DOWN</small></button></div></div>
+	    <div class="ui-block-c"><div class="button-wrap pad-9"><button class="ui-btn ui-icon-bars ui-btn-icon-top  ui-shadow ui-corner-all ui-mini" data-action="keyList">LIST</button></div></div>
+	  </fieldset>
+	</div>
+
+	<div data-role="collapsible" data-collapsed="false">
+	  <h3>Parte inferiore e macro</h3>
+	  <div class="ui-grid-b">
+	    <div class="ui-block-a">
+	      <div data-role="controlgroup">
+		  <button class="ui-btn ui-corner-all ui-icon-carat-u ui-btn-icon-left ui-btn-icon-notext" data-action="keyVolumeUp">up</button>
+		  <div class="ui-btn ui-icon-volume-up ui-corner-all ui-btn-icon-notext">volume</div>
+		  <button class="ui-btn ui-corner-all ui-icon-carat-d ui-btn-icon-notext" data-action="keyVolumeDown">down</button>
+	      </div>
+	    </div>
+	    <div class="ui-block-b"><div class="button-wrap button-mute"><button class="ui-btn ui-icon-volume-off ui-btn-icon-top ui-shadow ui-corner-all" data-action="keyVolumeMute"><small>mute</small></button></div></div>
+	    <div class="ui-block-c">
+	      <div data-role="controlgroup">
+		  <button class="ui-btn ui-corner-all ui-icon-carat-u ui-btn-icon-left ui-btn-icon-notext" data-action="keyChannelUp">up</button>
+		  <div class="ui-btn ui-icon-grid ui-corner-all ui-btn-icon-notext">channel</div>
+		  <button class="ui-btn ui-corner-all ui-icon-carat-d ui-btn-icon-notext" data-action="keyChannelDown">down</button>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="ui-grid-b">
+	    <div class="ui-block-a"><div class="button-wrap"><button class="ui-btn ui-shadow ui-corner-all ui-mini" data-action="key1">1 <small>. @</small></button></div></div>
+	    <div class="ui-block-b"><div class="button-wrap"><button class="ui-btn ui-shadow ui-corner-all ui-mini" data-action="key2">2 <small>ABC</small></button></div></div>
+	    <div class="ui-block-c"><div class="button-wrap"><button class="ui-btn ui-shadow ui-corner-all ui-mini" data-action="key3"><small>DEF</small> 3</button></div></div>
+	    <div class="ui-block-a"><div class="button-wrap"><button class="ui-btn ui-shadow ui-corner-all ui-mini" data-action="key4">4 <small>GHI</small></button></div></div>
+	    <div class="ui-block-b"><div class="button-wrap"><button class="ui-btn ui-shadow ui-corner-all ui-mini" data-action="key5">5 <small>JKL</small></button></div></div>
+	    <div class="ui-block-c"><div class="button-wrap"><button class="ui-btn ui-shadow ui-corner-all ui-mini" data-action="key6"><small>MNO</small> 6</button></div></div>
+	    <div class="ui-block-a"><div class="button-wrap"><button class="ui-btn ui-shadow ui-corner-all ui-mini" data-action="key7">7 <small>PQRS</small></button></div></div>
+	    <div class="ui-block-b"><div class="button-wrap"><button class="ui-btn ui-shadow ui-corner-all ui-mini" data-action="key8">8 <small>TUV</small></button></div></div>
+	    <div class="ui-block-c"><div class="button-wrap"><button class="ui-btn ui-shadow ui-corner-all ui-mini" data-action="key9"><small>WXYZ</small> 9</button></div></div>
+	    <div class="ui-block-a"><div class="button-wrap"><button class="ui-btn ui-shadow ui-corner-all ui-mini" data-action="keySubtitle"><small>SUBTITLE</small></button></div></div>
+	    <div class="ui-block-b"><div class="button-wrap"><button class="ui-btn ui-shadow ui-corner-all ui-mini" data-action="key0">0 <small>&#x2423;</small></button></div></div>
+	    <div class="ui-block-c"><div class="button-wrap"><button class="ui-btn ui-shadow ui-corner-all ui-mini" data-action="keyText"><small>TEXT</small></button></div></div>
+	  </div>
+	  <hr>
+	  <!-- MACROS -->
+	  <div class="ui-grid-d">
+	      <h3 class="ui-bar ui-bar-b">Macros</h3>
+	      <div class="ui-block-a"><div class="button-wrap"><button class="ui-btn ui-icon-clock ui-btn-icon-top ui-shadow ui-corner-all icon-red" data-action="keySetup,keyRight,keyRight,keyOk,keyDown,keyOk,keyUp,keyUp,keyUp,keyUp,keyUp,keyUp,keyUp,keyUp,keyOk,keyBack,keyBack"><small>+40'</small></button></div></div>
+	      <div class="ui-block-b"><div class="button-wrap"><button class="ui-btn ui-icon-comment ui-btn-icon-top ui-shadow ui-corner-all" data-action="keySetValue">prompt value</button></div></div>
+	      <div class="ui-block-b">
+		<div class="button-wrap">
+		  <button class="ui-btn ui-icon-clock ui-btn-icon-top ui-shadow ui-corner-all confirm" data-rel="popup" data-action="keySetValue" data-value="keySetup,keyRight,keyRight,keyOk,keyDown,keyOk,keyDown,keyDown,keyDown,keyDown,keyDown,keyDown,keyDown,keyDown,keyOk,keyBack,keyBack">data value</button>
+		  <span class="confirm-wrap"><small>es: questa macro annulla il timer +40' precedente</small></span>
+		</div>
+	      </div>
+	  </div>
+	</div>
+    </div>
+    <div data-role="footer"></div>
+  </div>
+
+  <script>
+
+    window.onload = function () {
+        // defined as internal css, see above
+        //load("jqm-tv-remote.css","css", function(){
+            //load("icon-pack.css","css", function() {
+                    // console.log
+            //});
+        //});
+    }
+
+    function load(e,t,n) {
+            if("js"==t) {
+                    var a=document.createElement("script");
+                    a.src=e,
+                    a.type="text/javascript",
+                    a.async=!1,
+                    a.onload=function() { n() },
+                    document.getElementsByTagName("head")[0].appendChild(a)
+            }
+            else if("css"==t) {
+                    var a=document.createElement("link");
+                    a.href=e,
+                    a.rel="stylesheet",
+                    a.type="text/css",
+                    a.async=!1,
+                    a.onload=function(){ n() },
+                    document.getElementsByTagName("head")[0].appendChild(a)
+            }
+    }
+
+    $(document).on("pageinit",function(){
+
+
+	function toast(message, dur, type, pos) {
+
+		//console.log("LOG - " + message);
+
+		if (typeof dur === "undefined" || dur === null) {
+		  dur = 1000;
+		}
+
+		if (typeof type === "undefined" || type === null) {
+		  type = 'default';
+		}
+
+		if (typeof pos === "undefined" || pos === null) {
+		  pos = 'default';
+		}
+
+		var $toast = $('<div class="ui-loader ui-overlay-shadow ui-body-b ui-corner-all"><h3>' + message + '</h3></div>');
+
+		if(type == 'default') {
+		  var background = '#2a2a2a';
+		}
+		if(type == 'info') {
+		  var background = '#009ff0';
+		}
+		if(type == 'success') {
+		  var background = '#008000';
+		}
+		if(type == 'error') {
+		  var background = '#ff0000';
+		}
+
+		if(pos == 'default') {
+		  var left = ($(window).width() - 284) / 2;
+		  var top = $(window).height() / 2 - 20;
+		  var bottom = 'inherit';
+		}
+
+		if(pos == 'top') {
+		  var left = ($(window).width() - 284) / 2;
+		  var top = 20;
+		  var bottom = 'inherit';
+		}
+
+		if(pos == 'bottom') {
+		  var left = ($(window).width() - 284) / 2;
+		  var top = 'inherit';
+		  var bottom = 20;
+		}
+
+		$toast.css({
+		    display: 'block',
+		    background: background,
+		    opacity: 0.90,
+		    position: 'fixed',
+		    padding: '7px',
+		    'text-align': 'center',
+		    width: '270px',
+		    left: left,
+		    top: top,
+		    bottom: bottom
+		});
+
+		var removeToast = function(){
+		    $(this).remove();
+		};
+
+		$toast.click(removeToast);
+
+		$toast.appendTo($.mobile.pageContainer).delay(dur);
+		$toast.fadeOut(400, removeToast);
+	}
+
+	// EVENTI (per tutti i tasti)
+	var int00; // declared here to make it visible to clearInterval.
+	var taphold;
+	// Evento "tap" equivale ad una pressione breve del tasto del telecomando.
+	// Evento "taphold" equivale ad una pressione lunga del tasto del telecomando.
+	// Evento "vmouseup" ripristino impostazioni predefinite dei tasti
+
+	$(document).on({
+	    "tap" : function(e) { // anche click, vclick?
+
+		if(taphold){ return; }
+
+		var action = $(this).data('action');
+		//toast('Button Clicked: ' + action);
+		var value = false;
+		if (action == 'keySetValue') {
+			var value = $(this).data('value');
+			//console.log(value);
+			if(!value){
+			  value = prompt("Inserire il numero del canale o valori multipli (key) separati da virgola", 'keyChannelUp,keyChannelDown');
+			  if (value === "") {
+			      // user pressed OK, but the input field was empty
+			      toast("user pressed OK, but the input field was empty", 2000, 'info');
+			      return;
+			  } else if (value) {
+			      // user typed something and hit OK
+			  } else {
+			      // user hit cancel
+			      toast("user hit cancel", 2000, 'info');
+			      return;
+			  }
+			}
+
+			if($(this).hasClass("confirm")){
+			  var strconfirm = confirm($(this).next(".confirm-wrap").text());
+			  if (strconfirm == false) {
+			    toast("user hit cancel", 2000, 'info');
+			    return;
+			  }
+			}
+		}
+
+		$.ajax({
+			type: 'GET',
+			url: '/act',
+			data: { actions: action, value: value },
+			beforeSend: function() {
+			    $.mobile.loading('show', {theme:"b", text:"Please wait...", textonly:false, textVisible: false});
+			},
+			complete: function() {
+			    //$.mobile.loading('hide');
+			},
+			success: function (result) {
+			    var msg = $.parseJSON(result);
+			    toast(msg.success, 2000, 'success', 'top');
+			    $.mobile.loading('hide');
+			},
+			error: function (request,error) {
+			    //alert('Network error has occurred please try again!');
+			    $.mobile.loading('show', {theme:"b", text:"Network error has occurred please try again", textonly:true, textVisible: true});
+			    toast(error, 2000, 'error');
+			}
+		});
+
+	    },
+	    "taphold" : function(e) {
+
+		taphold = true;
+
+		// http://stackoverflow.com/questions/10502383/jquery-calling-click-event-after-taphold-event
+		// https://api.jquerymobile.com/taphold/
+		$.event.special.tap.emitTapOnTaphold = false;
+
+		var action = $(this).data('action');
+
+		// comportamento specifico per i tasti "rewind" e "forward" (vedi conf lirc philips)
+		if (action == 'keyRewindAlt') {
+		  $(this).data('action', 'keyRewind');
+		} else if (action == 'keyForwardAlt') {
+		  $(this).data('action', 'keyForward');
+		}
+
+		var action = $(this).data('action');
+
+		var value = false;
+
+		int00 = setInterval(function() {
+
+		  $.ajax({
+			  type: 'GET',
+			  url: '/act',
+			  data: { actions: action, value: value },
+			  beforeSend: function() {
+			      $.mobile.loading('show', {theme:"b", text:"Please wait...", textonly:false, textVisible: false});
+			  },
+			  complete: function() {
+			      //$.mobile.loading('hide');
+			  },
+			  success: function (result) {
+			      var msg = $.parseJSON(result);
+			      toast(msg.success, 1000, 'success', 'bottom');
+			      $.mobile.loading('hide');
+			  },
+			  error: function (request,error) {
+			      //alert('Network error has occurred please try again!');
+			      $.mobile.loading('show', {theme:"b", text:"Network error has occurred please try again", textonly:true, textVisible: true});
+			      toast(error, 1000, 'error');
+			  }
+		  });
+
+		}, 900); // frequenza di ripetizione invio comando
+
+	    },
+	    "vmouseup" : function(e) {
+
+		clearInterval(int00);
+		 $.event.special.tap.emitTapOnTaphold = true;
+
+		// NECESSARIO per ripristino status predefinito dei tasti indicati specifici
+		if ($(this).data('action') == 'keyRewind') {
+		  $(this).data('action', 'keyRewindAlt');
+		} else if ($(this).data('action') == 'keyForward') {
+		  $(this).data('action', 'keyForwardAlt');
+		}
+
+		// hack per evitare che jqm intercetti un ulteriore evento "tap" sul tasto alla fine del taphold
+		setTimeout( function() {
+		  taphold = false;
+		}, 900);
+
+	    }
+	}, "[data-action]");
+
+    });
+  </script>
+
+</body>
+</html>

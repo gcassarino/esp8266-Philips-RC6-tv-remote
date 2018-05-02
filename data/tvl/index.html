@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Description" content="TV remote control">
+	<meta name="Author" content="Gianluca Cassarino - gcassarino@gmail.com">
+	<meta name="Robots" content="index,follow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Philips TV Remote light</title>
+	<link rel="shortcut icon" sizes="156x138" href="icon.png">
+</head>
+<body>
+  <strong>Philips TV Remote light</strong>
+  <hr>
+	<div class="wrapper">
+		<br>
+		<a href="#" onclick="keyClick('keyPower');return false;" class="btn btn--m btn--red">power</a>
+		<br>
+	</div>
+	<div class="wrapper">
+		<a href="#" onclick="keyClick('keyStop');return false;" class="btn btn--m btn--blue">stop</a>
+		<a href="#" onclick="keyClick('keyPause');return false;" class="btn btn--m btn--blue">pause</a>
+		<a href="#" onclick="keyClick('keyRecord');return false;" class="btn btn--m btn--blue">record</a>
+	</div>
+	<div class="wrapper">
+		<a href="#" onclick="keyClick('keyRewindAlt');return false;" class="btn btn--m btn--blue">rewind</a>
+		<a href="#" onclick="keyClick('keyPlay');return false;" class="btn btn--m btn--blue">play</a>
+		<a href="#" onclick="keyClick('keyForwardAlt');return false;" class="btn btn--m btn--blue">forward</a>
+	</div>
+	<div class="wrapper">
+		<a href="#" onclick="keyClick('keyTvGuide');return false;" class="btn btn--m btn--blue">tv guide</a>
+		<a href="#" onclick="keyClick('keySetup');return false;" class="btn btn--m btn--blue">setup</a>
+		<a href="#" onclick="keyClick('keyFormat');return false;" class="btn btn--m btn--blue">format</a>
+	</div>
+	<div class="wrapper">
+    <a href="#" onclick="keyClick('keySources');return false;" class="btn btn--m btn--blue">sources</a>
+		<a href="#" onclick="keyClick('keyHome');return false;" class="btn btn--m btn--blue">home</a>
+		<a href="#" onclick="keyClick('keyExit');return false;" class="btn btn--m btn--blue">exit</a>
+	</div>
+	<div class="wrapper">
+		<a href="#" onclick="keyClick('keyRed');return false;" class="btn btn--m btn--red">red</a>
+		<a href="#" onclick="keyClick('keyGreen');return false;" class="btn btn--m btn--green">green</a>
+		<a href="#" onclick="keyClick('keyYellow');return false;" class="btn btn--m btn--yellow">yellow</a>
+		<a href="#" onclick="keyClick('keyBlue');return false;" class="btn btn--m btn--blue">blue</a>
+	</div>
+	<div class="wrapper">
+		<a href="#" onclick="keyClick('keyInfo');return false;" class="btn btn--m btn--blue">info</a>
+		<a href="#" onclick="keyClick('keyUp');return false;" class="btn btn--m btn--grey">up</a>
+		<a href="#" onclick="keyClick('keyOptions');return false;" class="btn btn--m btn--blue">options</a>
+	</div>
+	<div class="wrapper">
+		<a href="#" onclick="keyClick('keyLeft');return false;" class="btn btn--m btn--grey">left</a>
+		<a href="#" onclick="keyClick('keyOk');return false;" class="btn btn--m btn--grey">ok</a>
+		<a href="#" onclick="keyClick('keyRight');return false;" class="btn btn--m btn--grey">right</a>
+	</div>
+	<div class="wrapper">
+		<a href="#" onclick="keyClick('keyBack');return false;" class="btn btn--m btn--blue">back</a>
+		<a href="#" onclick="keyClick('keyDown');return false;" class="btn btn--m btn--grey">down</a>
+		<a href="#" onclick="keyClick('keyList');return false;" class="btn btn--m btn--blue">list</a>
+	</div>
+	<div class="wrapper">
+		<a href="#" onclick="keyClick('keyVolumeUp');return false;" class="btn btn--m btn--blue">vol +</a>
+		<a href="#" onclick="keyClick('keyVolumeMute');return false;" class="btn btn--m btn--blue">mute</a>
+		<a href="#" onclick="keyClick('keyChannelUp');return false;" class="btn btn--m btn--blue">ch +</a>
+	</div>
+	<div class="wrapper">
+		<a href="#" onclick="keyClick('keyVolumeDown');return false;" class="btn btn--m btn--blue">vol -</a>
+		<a href="#" onclick="keyClick('keySetValue');return false;" class="btn btn--m btn--grey">inserisci comando</a>
+		<a href="#" onclick="keyClick('keyChannelDown');return false;" class="btn btn--m btn--blue">ch -</a>
+	</div>
+	<div class="wrapper">
+		<a href="#" onclick="keyClick('keySetValue', 'keySetup,keyRight,keyRight,keyOk,keyDown,keyOk,keyUp,keyUp,keyUp,keyUp,keyUp,keyUp,keyUp,keyUp,keyOk,keyBack,keyBack');return false;" class="btn btn--m btn--blue" >Timer off +40 minuti</a>
+		<a href="#" onclick="keyClick('keySetValue', 'keySetup,keyRight,keyRight,keyOk,keyDown,keyOk,keyDown,keyDown,keyDown,keyDown,keyDown,keyDown,keyDown,keyDown,keyOk,keyBack,keyBack');return false;" class="btn btn--m btn--blue" >Timer off -40 minuti</a>
+	</div>
+	<hr>
+	<div class="wrapper">
+		<br>
+		<strong>Preferiti</strong>
+	</div>
+	<div class="wrapper">
+		<a href="#" onclick="keyClick('keySetValue', '54');return false;" class="btn btn--m btn--blue">Rai Storia</a>
+		<a href="#" onclick="keyClick('keySetValue', '33');return false;" class="btn btn--m btn--green">Food network</a>
+		<a href="#" onclick="keyClick('keySetValue', '52');return false;" class="btn btn--m btn--red">Sky TG24</a>
+	</div>
+	<div class="wrapper">
+		<p></p>
+	</div>
+<script>
+	window.onload = function() {
+		load("style.css","css", function() {
+			load("microajax.js","js", function() {
+				// Do something after load...
+			});
+		});
+	}
+	function load(e,t,n) {
+		if("js"==t) {
+			var a=document.createElement("script");
+			a.src=e,
+			a.type="text/javascript",
+			a.async=!1,
+			a.onload=function() { n() },
+			document.getElementsByTagName("head")[0].appendChild(a)
+		}
+		else if("css"==t) {
+			var a=document.createElement("link");
+			a.href=e,
+			a.rel="stylesheet",
+			a.type="text/css",
+			a.async=!1,
+			a.onload=function(){ n() },
+			document.getElementsByTagName("head")[0].appendChild(a)
+		}
+	}
+
+        function keyClick(a, v = 'false'){ // action, value
+            if (a == 'keySetValue') {
+                //console.log(v);
+                if (v == 'false') {
+                    v = prompt("Inserire il numero del canale o valori multipli (key) separati da virgola", 'keyChannelUp,keyChannelDown');
+                    if (v === "") {
+                        // user pressed OK, but the input field was empty
+                        console.log("user pressed OK, but the input field was empty");
+                        return;
+                    } else if(v) {
+                        // user typed something and hit OK
+                    } else {
+                        // user hit cancel
+                        console.log("user hit cancel");
+                        return;
+                    }
+                }
+            }
+
+            microAjax("/act?actions="+a+"&value="+v, function(res) {
+                console.log(res);
+            });
+        }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="Description" content="TV remote control - ESP8266 v0.6">
+	<meta name="Author" content="Gianluca Cassarino - gcassarino@gmail.com">
+	<meta name="Robots" content="index,follow">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>TV Remote - ESP8266</title>
+</head>
+<body>
+	<strong>Administration</strong>
+	<hr>
+	<a href="/index.html" style="width:250px" class="btn btn--m btn--blue" >Home</a>
+  <br>
+	<a href="general.html" style="width:250px" class="btn btn--m btn--blue" >General Configuration</a>
+	<br>
+	<a href="config.html" style="width:250px" class="btn btn--m btn--blue" >Network Configuration</a>
+	<br>
+	<a href="info.html"   style="width:250px"  class="btn btn--m btn--blue" >Network Information</a>
+	<br>
+	<a href="ntp.html"   style="width:250px"  class="btn btn--m btn--blue" >NTP Settings</a>
+	<br>
+	<a href="system.html"   style="width:250px"  class="btn btn--m btn--blue" >System Settings</a>
+	<br>
+	<a title="Click to logout" href="#" onclick="safeLocation();return false;" style="width:250px"  class="btn btn--m btn--blue" >Logout</a>
+	<br>
+
+<script>
+	window.onload = function ()
+	{
+		load("style.css","css", function()
+		{
+			load("microajax.js","js", function()
+			{
+				// Do something after load...
+			});
+		});
+	}
+	function load(e,t,n) {
+		if("js"==t) {
+			var a=document.createElement("script");
+			a.src=e,
+			a.type="text/javascript",
+			a.async=!1,
+			a.onload=function() { n() },
+			document.getElementsByTagName("head")[0].appendChild(a)
+		}
+		else if("css"==t) {
+			var a=document.createElement("link");
+			a.href=e,
+			a.rel="stylesheet",
+			a.type="text/css",
+			a.async=!1,
+			a.onload=function(){ n() },
+			document.getElementsByTagName("head")[0].appendChild(a)
+		}
+	}
+
+	function safeLocation() {
+	    var outcome, u, m = "You should be logged out now.";
+	    // IE has a simple solution for it - API:
+	    try { outcome = document.execCommand("ClearAuthenticationCache") }catch(e){}
+	    // Other browsers need a larger solution - AJAX call with special user name - 'logout'.
+	    if (!outcome) {
+	        // Let's create an xmlhttp object
+	        outcome = (function(x){
+	            if (x) {
+	                // the reason we use "random" value for password is
+	                // that browsers cache requests. changing
+	                // password effectively behaves like cache-busting.
+									// if present URI does not return 200 OK for GET, set some other 200 OK location here
+	                x.open("HEAD", location.href, true, "logout", (new Date()).getTime().toString())
+	                x.send("")
+	                // x.abort()
+									setTimeout(function() {
+                     document.location.replace('/index.html');
+                  }, 2000);
+	                return 1 // this is **speculative** "We are done."
+	            } else {
+	                return
+	            }
+	        })(window.XMLHttpRequest ? new window.XMLHttpRequest() : ( window.ActiveXObject ? new ActiveXObject("Microsoft.XMLHTTP") : u ))
+	    }
+	    if (!outcome) {
+	        m = "Your browser is too old or too weird to support log out functionality. Close all windows and restart the browser."
+	    }
+	    alert(m)
+	}
+</script>
+</body>
+</html>
