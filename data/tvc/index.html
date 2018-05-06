@@ -31,7 +31,7 @@
 
   <section id="keyboard">
   	<div class="wrapper">
-  		<br>
+  		<div id="res" class="res-off"></div>
   		<a href="#" onclick="keyClick('keyPower');return false;" class="btn btn--m btn--red">power</a>
   		<br>
   	</div>
@@ -430,6 +430,9 @@
 
             // fine EDIT MODE
             } else {
+                // visual response
+                document.querySelector('#res').classList.toggle("res-off");
+                document.querySelector('#res').classList.toggle("res-on");
                 //console.log(v);
                 //v = document.getElementById(this.id).getAttribute('data-action');
                 //
@@ -440,9 +443,34 @@
                 }
 
                 microAjax("/act?actions=keySetValue&value="+v, function(res) {
-                  console.log("res:"+res);
+                    console.log("response: "+res);
+                    if(res){
+                        var ob = JSON.parse(res);
+                        if (ob.hasOwnProperty("success")) {
+                            console.log("success" + " = " + ob["success"]);
+                            document.querySelector('#res').style.backgroundColor = 'rgb(30, 231, 33)';
+                            var color = [30, 231, 33].join(',') + ',',
+                            transparency = 1,
+                            element = document.querySelector('#res'),
+                            timeout = setInterval(function(){
+                                if(transparency >= 0){
+                                    //element.style.backgroundColor = 'rgba(' + color + (transparency -= 0.015) + ')';
+                                    // (1 / 0.015) / 25 = 2.66 seconds to complete animation
+                                    transparency -= 0.04;
+                                } else {
+                                    clearInterval(timeout);
+                                    document.querySelector('#res').removeAttribute("style");
+                                    document.querySelector('#res').classList.remove("res-on");
+                                    document.querySelector('#res').classList.add("res-off");
+                                }
+                            }, 40); // 1000/40 = 25 fps
+                            
+                        } else {
+                            console.log("ko");
+                                document.querySelector('#res').classList.add("res-ko");
+                        }
+                    }
                 });
-
             }
             return false;
         }
@@ -508,19 +536,19 @@
           });
         }
 
-				// TOGGLE NIGHT/DAY MODE
-				function toggleNightDay(){
-					if(isDay){
-						isDay = false;
-						document.querySelector('#toggleNightDayBtn').classList.add("btn--grey");
-						document.body.classList.add("bg--night");
-					} else {
-						// is night
-						isDay = true;
-						document.querySelector('#toggleNightDayBtn').classList.remove("btn--grey");
-						document.body.classList.remove("bg--night");
-					}
-				}
+        // TOGGLE NIGHT/DAY MODE
+        function toggleNightDay(){
+            if(isDay){
+                isDay = false;
+                document.querySelector('#toggleNightDayBtn').classList.add("btn--grey");
+                document.body.classList.add("bg--night");
+            } else {
+                // is night
+                isDay = true;
+                document.querySelector('#toggleNightDayBtn').classList.remove("btn--grey");
+                document.body.classList.remove("bg--night");
+            }
+        }
 
         function clearString(s){
             var ret = s.replace(/(^[,\s]+)|([,\s]+$)/g, ''); // trim the leading and trailing comma or whitespace

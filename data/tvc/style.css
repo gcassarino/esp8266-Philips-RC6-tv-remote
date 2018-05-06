@@ -162,6 +162,25 @@ th {
 }
 
 
+#res {
+    background: #aaa;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: relative;
+    left: 80%;
+    visibility: visible;
+}
+#res.res-off {
+    background: #aaa;
+}
+#res.res-on {
+    background: #ff0000;
+}
+#res.res-ko {
+    background: #ff0000;
+}
+
 #keyboard .btn.hidden {
     /*! display: none; */
     visibility: hidden;
