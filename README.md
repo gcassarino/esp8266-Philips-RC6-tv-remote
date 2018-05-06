@@ -34,6 +34,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 * FSBrowserNG by Germán Martín [(gmag11)](https://github.com/gmag11)
 * Lee H-W [(species5618)](https://github.com/species5618) for writing several useful additional features for FSBrowserNG
 * ESPAsyncTCP by Hristo Gochkov [(me-no-dev)](https://github.com/me-no-dev)
+* Ken Shirriff's [blog](http://www.righto.com/)
 * IRremoteESP8266 by Ken Shirriff, Sebastien Warin, Mark Szabo, Roi Dayan, David Conran, Massimiliano Pinto (https://platformio.org/lib/show/1089/IRremoteESP8266)
 * Please look at the [resources related repository](TODO) for the Fritzing scheme and some screenshots.
 
