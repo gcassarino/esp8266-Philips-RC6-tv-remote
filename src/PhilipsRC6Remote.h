@@ -1,8 +1,9 @@
 /*  PhilipsRC6Remote
- *  0.4 Apr 2018
+ *  0.3 May 2018
+ *  0.2 Apr 2018
  *  0.1 Jan 2018
  *  Copyright 2018 Gianluca Cassarino
- *  Definisce i nomi dei tasti da associare ai codici IR. 
+ *  Definisce i nomi dei tasti da associare ai codici IR.
 
 The MIT License (MIT)
 
@@ -183,7 +184,7 @@ public:
   PhilipsRC6Remote(char *remote);
   void init();
   String getRemoteModel();
-  //int convertLircKeyCode(int lirc_pre_data, int lirc_key_code);
+  void processCmd(char *cmd);
   unsigned long convertLircKeyCode(unsigned long lirc_pre_data, unsigned long lirc_key_code);
   // KEYS
   // taphold keys

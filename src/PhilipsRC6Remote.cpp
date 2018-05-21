@@ -1,6 +1,7 @@
 /*
  *  PhilipsRC6Remote
- *  0.4 Apr 2018
+ *  0.3 May 2018
+ *  0.2 Apr 2018
  *  0.1 Jan 2018
  *  Copyright 2018 Gianluca Cassarino
  *  Definisce i codici del telecomando del TV Philips22PFT4000_12 nel formato
@@ -64,7 +65,7 @@ unsigned long KEY_CODES[45] PROGMEM = {
   0x0FFFFB,
   0x0EFFFA,
   0x0FFFF9,
-  0x0FFFF8, //0x0EFFF8
+  0x0FFFF8,
   0x0EFFF7,
   0x0EFFF6,
   0x0EFFB4,
@@ -93,13 +94,113 @@ unsigned long PhilipsRC6Remote::convertLircKeyCode(unsigned long lirc_pre_data, 
   unsigned long x = ((unsigned long)lirc_pre_data << 24) | lirc_key_code;
   unsigned long y = ~x;
   //
-  Serial.printf("Lirc KeyCode to Arduino KeyCode: %x -> %x\n", x, y);
+  Serial.printf("Lirc KeyCode to Arduino KeyCode: %lx -> %lx\n", x, y);
   return y;
 }
 
 String PhilipsRC6Remote::getRemoteModel(){
   String str(this->_remote);
   return str;
+}
+
+void PhilipsRC6Remote::processCmd(char *cmd) {
+  if (strcmp(cmd, "printRemoteModel") == 0) {
+    Serial.print("RemoteModel: ");  Serial.println(getRemoteModel());
+  } else if (strcmp(cmd, "keyPower") == 0){ // Philips22PFT4000_12 remote KEYS
+    keyPower();
+  } else if(strcmp(cmd, "keyStop") == 0){
+    keyStop();
+  } else if(strcmp(cmd, "keyPause") == 0){
+    keyPause();
+  } else if(strcmp(cmd, "keyRecord") == 0){
+    keyRecord();
+  } else if(strcmp(cmd, "keyRewind") == 0){
+    keyRewind();
+  } else if(strcmp(cmd, "keyRewindAlt") == 0){
+    keyRewindAlt();
+  } else if(strcmp(cmd, "keyPlay") == 0){
+    keyPlay();
+  } else if(strcmp(cmd, "keyForward") == 0){
+    keyForward();
+  } else if(strcmp(cmd, "keyForwardAlt") == 0){
+    keyForwardAlt();
+  } else if(strcmp(cmd, "keyTvGuide") == 0){
+    keyTvGuide();
+  } else if(strcmp(cmd, "keySetup") == 0){
+    keySetup();
+  } else if(strcmp(cmd, "keyFormat") == 0){
+    keyFormat();
+  } else if(strcmp(cmd, "keySources") == 0){
+    keySources();
+  } else if(strcmp(cmd, "keyHome") == 0){
+    keyHome();
+  } else if(strcmp(cmd, "keyExit") == 0){
+    keyExit();
+  } else if(strcmp(cmd, "keyRed") == 0){
+    keyRed();
+  } else if(strcmp(cmd, "keyGreen") == 0){
+    keyGreen();
+  } else if(strcmp(cmd, "keyYellow") == 0){
+    keyYellow();
+  } else if(strcmp(cmd, "keyBlue") == 0){
+    keyBlue();
+  } else if(strcmp(cmd, "keyInfo") == 0){
+    keyInfo();
+  } else if(strcmp(cmd, "keyUp") == 0){
+    keyUp();
+  } else if(strcmp(cmd, "keyOptions") == 0){
+    keyOptions();
+  } else if(strcmp(cmd, "keyLeft") == 0){
+    keyLeft();
+  } else if(strcmp(cmd, "keyOk") == 0){
+    keyOk();
+  } else if(strcmp(cmd, "keyRight") == 0){
+    keyRight();
+  } else if(strcmp(cmd, "keyBack") == 0){
+    keyBack();
+  } else if(strcmp(cmd, "keyDown") == 0){
+    keyDown();
+  } else if(strcmp(cmd, "keyList") == 0){
+    keyList();
+  } else if(strcmp(cmd, "keyVolumeUp") == 0){
+    keyVolumeUp();
+  } else if(strcmp(cmd, "keyVolumeDown") == 0){
+    keyVolumeDown();
+  } else if(strcmp(cmd, "keyVolumeMute") == 0){
+    keyVolumeMute();
+  } else if(strcmp(cmd, "keyChannelUp") == 0){
+    keyChannelUp();
+  } else if(strcmp(cmd, "keyChannelDown") == 0){
+    keyChannelDown();
+  } else if(strcmp(cmd, "key1") == 0){
+    key1();
+  } else if(strcmp(cmd, "key2") == 0){
+    key2();
+  } else if(strcmp(cmd, "key3") == 0){
+    key3();
+  } else if(strcmp(cmd, "key4") == 0){
+    key4();
+  } else if(strcmp(cmd, "key5") == 0){
+    key5();
+  } else if(strcmp(cmd, "key6") == 0){
+    key6();
+  } else if(strcmp(cmd, "key7") == 0){
+    key7();
+  } else if(strcmp(cmd, "key8") == 0){
+    key8();
+  } else if(strcmp(cmd, "key9") == 0){
+    key9();
+  } else if(strcmp(cmd, "key0") == 0){
+    key0();
+  } else if(strcmp(cmd, "keySubtitle") == 0){
+    keySubtitle();
+  } else if(strcmp(cmd, "keyText") == 0){
+    keyText();
+  } else if(strcmp(cmd, "sleep") == 0){
+    // do nothing, salta un giro
+  } else {
+    // do nothing, salta un giro
+  }
 }
 
 // KEYS

@@ -1,5 +1,7 @@
 /*
  *  KeyActions Version
+ *  0.3 May 2018
+ *    - better organization of some parts of the code
  *  0.2 Apr 2018
  *  0.1 Jan 2018
  *  Copyright 2018 Gianluca Cassarino
@@ -82,107 +84,109 @@ void processCmdQueue(){
   ////////////////////////////////DEBUG/////////////////////////////////////////
 
   // eseguo il comando
-  if (strcmp(cmdBuf[curElem], "printRemoteModel") == 0) {
-    String model;
-    model = remote.getRemoteModel();
-    Serial.print("RemoteModel: ");
-    Serial.println(model); // printRemoteModel è usato solo per debug
-  } // KEYS
-  else if (strcmp(cmdBuf[curElem], "keyPower") == 0){
-    remote.keyPower();
-  } else if(strcmp(cmdBuf[curElem], "keyStop") == 0){
-    remote.keyStop();
-  } else if(strcmp(cmdBuf[curElem], "keyPause") == 0){
-    remote.keyPause();
-  } else if(strcmp(cmdBuf[curElem], "keyRecord") == 0){
-    remote.keyRecord();
-  } else if(strcmp(cmdBuf[curElem], "keyRewind") == 0){
-    remote.keyRewind();
-  } else if(strcmp(cmdBuf[curElem], "keyRewindAlt") == 0){
-    remote.keyRewindAlt();
-  } else if(strcmp(cmdBuf[curElem], "keyPlay") == 0){
-    remote.keyPlay();
-  } else if(strcmp(cmdBuf[curElem], "keyForward") == 0){
-    remote.keyForward();
-  } else if(strcmp(cmdBuf[curElem], "keyForwardAlt") == 0){
-    remote.keyForwardAlt();
-  } else if(strcmp(cmdBuf[curElem], "keyTvGuide") == 0){
-    remote.keyTvGuide();
-  } else if(strcmp(cmdBuf[curElem], "keySetup") == 0){
-    remote.keySetup();
-  } else if(strcmp(cmdBuf[curElem], "keyFormat") == 0){
-    remote.keyFormat();
-  } else if(strcmp(cmdBuf[curElem], "keySources") == 0){
-    remote.keySources();
-  } else if(strcmp(cmdBuf[curElem], "keyHome") == 0){
-    remote.keyHome();
-  } else if(strcmp(cmdBuf[curElem], "keyExit") == 0){
-    remote.keyExit();
-  } else if(strcmp(cmdBuf[curElem], "keyRed") == 0){
-    remote.keyRed();
-  } else if(strcmp(cmdBuf[curElem], "keyGreen") == 0){
-    remote.keyGreen();
-  } else if(strcmp(cmdBuf[curElem], "keyYellow") == 0){
-    remote.keyYellow();
-  } else if(strcmp(cmdBuf[curElem], "keyBlue") == 0){
-    remote.keyBlue();
-  } else if(strcmp(cmdBuf[curElem], "keyInfo") == 0){
-    remote.keyInfo();
-  } else if(strcmp(cmdBuf[curElem], "keyUp") == 0){
-    remote.keyUp();
-  } else if(strcmp(cmdBuf[curElem], "keyOptions") == 0){
-    remote.keyOptions();
-  } else if(strcmp(cmdBuf[curElem], "keyLeft") == 0){
-    remote.keyLeft();
-  } else if(strcmp(cmdBuf[curElem], "keyOk") == 0){
-    remote.keyOk();
-  } else if(strcmp(cmdBuf[curElem], "keyRight") == 0){
-    remote.keyRight();
-  } else if(strcmp(cmdBuf[curElem], "keyBack") == 0){
-    remote.keyBack();
-  } else if(strcmp(cmdBuf[curElem], "keyDown") == 0){
-    remote.keyDown();
-  } else if(strcmp(cmdBuf[curElem], "keyList") == 0){
-    remote.keyList();
-  } else if(strcmp(cmdBuf[curElem], "keyVolumeUp") == 0){
-    remote.keyVolumeUp();
-  } else if(strcmp(cmdBuf[curElem], "keyVolumeDown") == 0){
-    remote.keyVolumeDown();
-  } else if(strcmp(cmdBuf[curElem], "keyVolumeMute") == 0){
-    remote.keyVolumeMute();
-  } else if(strcmp(cmdBuf[curElem], "keyChannelUp") == 0){
-    remote.keyChannelUp();
-  } else if(strcmp(cmdBuf[curElem], "keyChannelDown") == 0){
-    remote.keyChannelDown();
-  } else if(strcmp(cmdBuf[curElem], "key1") == 0){
-    remote.key1();
-  } else if(strcmp(cmdBuf[curElem], "key2") == 0){
-    remote.key2();
-  } else if(strcmp(cmdBuf[curElem], "key3") == 0){
-    remote.key3();
-  } else if(strcmp(cmdBuf[curElem], "key4") == 0){
-    remote.key4();
-  } else if(strcmp(cmdBuf[curElem], "key5") == 0){
-    remote.key5();
-  } else if(strcmp(cmdBuf[curElem], "key6") == 0){
-    remote.key6();
-  } else if(strcmp(cmdBuf[curElem], "key7") == 0){
-    remote.key7();
-  } else if(strcmp(cmdBuf[curElem], "key8") == 0){
-    remote.key8();
-  } else if(strcmp(cmdBuf[curElem], "key9") == 0){
-    remote.key9();
-  } else if(strcmp(cmdBuf[curElem], "key0") == 0){
-    remote.key0();
-  } else if(strcmp(cmdBuf[curElem], "keySubtitle") == 0){
-    remote.keySubtitle();
-  } else if(strcmp(cmdBuf[curElem], "keyText") == 0){
-    remote.keyText();
-  } else if(strcmp(cmdBuf[curElem], "sleep") == 0){
-    // do nothing, salta un giro
-  } else {
-    // do nothing, salta un giro
-  }
+  remote.processCmd(cmdBuf[curElem]);
+  // if (strcmp(cmdBuf[curElem], "printRemoteModel") == 0) {
+  //   String model;
+  //   model = remote.getRemoteModel();
+  //   Serial.print("RemoteModel: ");
+  //   Serial.println(model); // printRemoteModel è usato solo per debug
+  // }
+  // Philips22PFT4000_12 remote KEYS
+  // else if (strcmp(cmdBuf[curElem], "keyPower") == 0){
+  //   remote.keyPower();
+  // } else if(strcmp(cmdBuf[curElem], "keyStop") == 0){
+  //   remote.keyStop();
+  // } else if(strcmp(cmdBuf[curElem], "keyPause") == 0){
+  //   remote.keyPause();
+  // } else if(strcmp(cmdBuf[curElem], "keyRecord") == 0){
+  //   remote.keyRecord();
+  // } else if(strcmp(cmdBuf[curElem], "keyRewind") == 0){
+  //   remote.keyRewind();
+  // } else if(strcmp(cmdBuf[curElem], "keyRewindAlt") == 0){
+  //   remote.keyRewindAlt();
+  // } else if(strcmp(cmdBuf[curElem], "keyPlay") == 0){
+  //   remote.keyPlay();
+  // } else if(strcmp(cmdBuf[curElem], "keyForward") == 0){
+  //   remote.keyForward();
+  // } else if(strcmp(cmdBuf[curElem], "keyForwardAlt") == 0){
+  //   remote.keyForwardAlt();
+  // } else if(strcmp(cmdBuf[curElem], "keyTvGuide") == 0){
+  //   remote.keyTvGuide();
+  // } else if(strcmp(cmdBuf[curElem], "keySetup") == 0){
+  //   remote.keySetup();
+  // } else if(strcmp(cmdBuf[curElem], "keyFormat") == 0){
+  //   remote.keyFormat();
+  // } else if(strcmp(cmdBuf[curElem], "keySources") == 0){
+  //   remote.keySources();
+  // } else if(strcmp(cmdBuf[curElem], "keyHome") == 0){
+  //   remote.keyHome();
+  // } else if(strcmp(cmdBuf[curElem], "keyExit") == 0){
+  //   remote.keyExit();
+  // } else if(strcmp(cmdBuf[curElem], "keyRed") == 0){
+  //   remote.keyRed();
+  // } else if(strcmp(cmdBuf[curElem], "keyGreen") == 0){
+  //   remote.keyGreen();
+  // } else if(strcmp(cmdBuf[curElem], "keyYellow") == 0){
+  //   remote.keyYellow();
+  // } else if(strcmp(cmdBuf[curElem], "keyBlue") == 0){
+  //   remote.keyBlue();
+  // } else if(strcmp(cmdBuf[curElem], "keyInfo") == 0){
+  //   remote.keyInfo();
+  // } else if(strcmp(cmdBuf[curElem], "keyUp") == 0){
+  //   remote.keyUp();
+  // } else if(strcmp(cmdBuf[curElem], "keyOptions") == 0){
+  //   remote.keyOptions();
+  // } else if(strcmp(cmdBuf[curElem], "keyLeft") == 0){
+  //   remote.keyLeft();
+  // } else if(strcmp(cmdBuf[curElem], "keyOk") == 0){
+  //   remote.keyOk();
+  // } else if(strcmp(cmdBuf[curElem], "keyRight") == 0){
+  //   remote.keyRight();
+  // } else if(strcmp(cmdBuf[curElem], "keyBack") == 0){
+  //   remote.keyBack();
+  // } else if(strcmp(cmdBuf[curElem], "keyDown") == 0){
+  //   remote.keyDown();
+  // } else if(strcmp(cmdBuf[curElem], "keyList") == 0){
+  //   remote.keyList();
+  // } else if(strcmp(cmdBuf[curElem], "keyVolumeUp") == 0){
+  //   remote.keyVolumeUp();
+  // } else if(strcmp(cmdBuf[curElem], "keyVolumeDown") == 0){
+  //   remote.keyVolumeDown();
+  // } else if(strcmp(cmdBuf[curElem], "keyVolumeMute") == 0){
+  //   remote.keyVolumeMute();
+  // } else if(strcmp(cmdBuf[curElem], "keyChannelUp") == 0){
+  //   remote.keyChannelUp();
+  // } else if(strcmp(cmdBuf[curElem], "keyChannelDown") == 0){
+  //   remote.keyChannelDown();
+  // } else if(strcmp(cmdBuf[curElem], "key1") == 0){
+  //   remote.key1();
+  // } else if(strcmp(cmdBuf[curElem], "key2") == 0){
+  //   remote.key2();
+  // } else if(strcmp(cmdBuf[curElem], "key3") == 0){
+  //   remote.key3();
+  // } else if(strcmp(cmdBuf[curElem], "key4") == 0){
+  //   remote.key4();
+  // } else if(strcmp(cmdBuf[curElem], "key5") == 0){
+  //   remote.key5();
+  // } else if(strcmp(cmdBuf[curElem], "key6") == 0){
+  //   remote.key6();
+  // } else if(strcmp(cmdBuf[curElem], "key7") == 0){
+  //   remote.key7();
+  // } else if(strcmp(cmdBuf[curElem], "key8") == 0){
+  //   remote.key8();
+  // } else if(strcmp(cmdBuf[curElem], "key9") == 0){
+  //   remote.key9();
+  // } else if(strcmp(cmdBuf[curElem], "key0") == 0){
+  //   remote.key0();
+  // } else if(strcmp(cmdBuf[curElem], "keySubtitle") == 0){
+  //   remote.keySubtitle();
+  // } else if(strcmp(cmdBuf[curElem], "keyText") == 0){
+  //   remote.keyText();
+  // } else if(strcmp(cmdBuf[curElem], "sleep") == 0){
+  //   // do nothing, salta un giro
+  // } else {
+  //   // do nothing, salta un giro
+  // }
 
 
   //OK 1 - cancello l'ultimo elemento LIFO (l'elemento estratto dal vettore)
