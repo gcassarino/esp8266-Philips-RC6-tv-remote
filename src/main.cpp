@@ -91,10 +91,10 @@ void setup() {
   /////////////////// TEST PROGMEM: dump dei primi due valori remote KEY_CODES
   for (int i = 0; i < 2; i++){
     // unsigned long is 32 bit, use 32-bit 'dword'
-    unsigned long w = pgm_read_dword(&KEY_CODES[i]);
+    uint32_t w = pgm_read_dword(&KEY_CODES[i]);
     // print the 16 bits in a few different ways.
-    //Serial.print( w, DEC);        Serial.print("  ");
-    //Serial.print( (int) w, DEC);  Serial.print("  ");
+    // Serial.print( w, DEC);        Serial.print("  ");
+    // Serial.print( (int) w, DEC);  Serial.print("  ");
     // Serial.print( w, HEX);        Serial.print("  ");
     // Serial.print( (int) w, HEX);  Serial.print("  ");
     // Serial.printf("%02X", w);
@@ -109,19 +109,18 @@ void setup() {
   cmdCycle.attach(0.5, processCmdQueue); // check the command queue in buffer every 0.5s
 
   /////////////////////////// DEBUG some info about SPIFFS
-  // TODO inserirle nelle stats (home page graphs) ?? Boh!
-  FSInfo info;
-  if (!SPIFFS.info(info)) {
-    Serial.println("SPIFFS info failed");
-  }
-  Serial.printf("SPIFFS Total: %u\nUsed: %u\nBlock: %u\nPage: %u\nMax open files: %u\nMax path len: %u\n",
-                info.totalBytes,
-                info.usedBytes,
-                info.blockSize,
-                info.pageSize,
-                info.maxOpenFiles,
-                info.maxPathLength
-              );
+  // FSInfo info;
+  // if (!SPIFFS.info(info)) {
+  //   Serial.println("SPIFFS info failed");
+  // }
+  // Serial.printf("SPIFFS Total: %u\nUsed: %u\nBlock: %u\nPage: %u\nMax open files: %u\nMax path len: %u\n",
+  //               info.totalBytes,
+  //               info.usedBytes,
+  //               info.blockSize,
+  //               info.pageSize,
+  //               info.maxOpenFiles,
+  //               info.maxPathLength
+  //             );
   /////////////////////////// DEBUG
 } // end SETUP
 

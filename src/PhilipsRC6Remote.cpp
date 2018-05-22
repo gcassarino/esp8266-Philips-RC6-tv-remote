@@ -26,7 +26,7 @@
 IRsend irsend(15); // An IR LED is controlled by GPIO pin 15 (D8)
 
 // names and values are from original Philips22PFT4000_12 lirc.conf
-unsigned long KEY_CODES[45] PROGMEM = {
+uint32_t KEY_CODES[45] PROGMEM = {
   0x0FFFB2,   // long key press (if tv: move to prev channel)
   0x0FFFD4,   // short key press (if tv: check if usb disk is connected, otherwise prints a message to tv)
   0x0EFFB3,   // long key press (if tv: move to next channel)

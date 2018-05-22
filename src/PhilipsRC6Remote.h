@@ -174,7 +174,7 @@ end remote
 #define KEY_POWER 44
 
 // names and values are from original Philips22PFT4000_12 lirc.conf
-extern unsigned long KEY_CODES[];
+extern uint32_t KEY_CODES[];
 
 // Class definition
 class PhilipsRC6Remote {
