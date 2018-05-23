@@ -97,12 +97,12 @@ void PhilipsRC6Remote::init(){
 // 2 - inverto il valore (binary NOT)
 // ottengo 0x88F0000D
 //
-unsigned int PhilipsRC6Remote::convertLircKeyCode(unsigned int lirc_pre_data, unsigned int lirc_key_code){
+unsigned long PhilipsRC6Remote::convertLircKeyCode(unsigned long lirc_pre_data, unsigned long lirc_key_code){
   // algoritmo base, testato solo con RC6 13 bits
-  unsigned int x = ((unsigned int)lirc_pre_data << 24) | lirc_key_code;
-  unsigned int y = ~x;
+  unsigned long x = ((unsigned long)lirc_pre_data << 24) | lirc_key_code;
+  unsigned long y = ~x;
   //
-  Serial.printf("Lirc KeyCode to Arduino KeyCode: %x -> %x\n", x, y);
+  Serial.printf("Lirc KeyCode to Arduino KeyCode: %lx -> %lx\n", x, y);
   return y;
 }
 

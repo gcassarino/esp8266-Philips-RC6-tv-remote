@@ -184,7 +184,7 @@ public:
   void init();
   String getRemoteModel();
   void processCmd(char *cmd);
-  unsigned int convertLircKeyCode(unsigned int lirc_pre_data, unsigned int lirc_key_code);
+  unsigned long convertLircKeyCode(unsigned long lirc_pre_data, unsigned long lirc_key_code);
   // KEYS
   // taphold keys
   void keyRewind();     // long key press (if tv: move to prev channel)
