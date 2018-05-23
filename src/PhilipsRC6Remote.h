@@ -173,8 +173,7 @@ end remote
 #define KEY_TEXT 43
 #define KEY_POWER 44
 
-// names and values are from original Philips22PFT4000_12 lirc.conf
-extern uint32_t KEY_CODES[];
+extern unsigned int KEY_CODES[];
 
 // Class definition
 class PhilipsRC6Remote {
@@ -185,7 +184,7 @@ public:
   void init();
   String getRemoteModel();
   void processCmd(char *cmd);
-  unsigned long convertLircKeyCode(unsigned long lirc_pre_data, unsigned long lirc_key_code);
+  unsigned int convertLircKeyCode(unsigned int lirc_pre_data, unsigned int lirc_key_code);
   // KEYS
   // taphold keys
   void keyRewind();     // long key press (if tv: move to prev channel)

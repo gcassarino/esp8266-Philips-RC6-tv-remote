@@ -90,8 +90,9 @@ void setup() {
 
   /////////////////// TEST PROGMEM: dump dei primi due valori remote KEY_CODES
   for (int i = 0; i < 2; i++){
-    // unsigned long is 32 bit, use 32-bit 'dword'
-    uint32_t w = pgm_read_dword(&KEY_CODES[i]);
+    // unsigned long on AVR is 32 bit, in ESP8266 unsigned int is 32 bit.
+    // see: https://github.com/esp8266/Arduino/blob/master/tools/sdk/include/c_types.h
+    unsigned long w = pgm_read_dword(&KEY_CODES[i]);
     // print the 16 bits in a few different ways.
     // Serial.print( w, DEC);        Serial.print("  ");
     // Serial.print( (int) w, DEC);  Serial.print("  ");

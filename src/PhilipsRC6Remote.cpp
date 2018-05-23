@@ -26,7 +26,15 @@
 IRsend irsend(15); // An IR LED is controlled by GPIO pin 15 (D8)
 
 // names and values are from original Philips22PFT4000_12 lirc.conf
-uint32_t KEY_CODES[45] PROGMEM = {
+// NOTE: "unsigned long" on AVR is 32 bit, in ESP8266 "unsigned int" is 32 bit too.
+// see: https://github.com/esp8266/Arduino/blob/master/tools/sdk/include/c_types.h
+// BUT if I use "unsigned long" instead, I get "in expansion of macro 'pgm_read_dword'"
+// error/note. The program builds anyway and works the same.
+// As noted here https://github.com/espressif/arduino-esp32/issues/384#issuecomment-302850065
+// ...to allow libraries to be portable between ESP32 Arduino core and other cores
+// is to use unsigned long for the return value... [despite the GCC complains...]
+// But I don't like complains so I leave this note and keep "unsigned int" anyway
+unsigned int KEY_CODES[45] PROGMEM = {
   0x0FFFB2,   // long key press (if tv: move to prev channel)
   0x0FFFD4,   // short key press (if tv: check if usb disk is connected, otherwise prints a message to tv)
   0x0EFFB3,   // long key press (if tv: move to next channel)
@@ -89,12 +97,12 @@ void PhilipsRC6Remote::init(){
 // 2 - inverto il valore (binary NOT)
 // ottengo 0x88F0000D
 //
-unsigned long PhilipsRC6Remote::convertLircKeyCode(unsigned long lirc_pre_data, unsigned long lirc_key_code){
+unsigned int PhilipsRC6Remote::convertLircKeyCode(unsigned int lirc_pre_data, unsigned int lirc_key_code){
   // algoritmo base, testato solo con RC6 13 bits
-  unsigned long x = ((unsigned long)lirc_pre_data << 24) | lirc_key_code;
-  unsigned long y = ~x;
+  unsigned int x = ((unsigned int)lirc_pre_data << 24) | lirc_key_code;
+  unsigned int y = ~x;
   //
-  Serial.printf("Lirc KeyCode to Arduino KeyCode: %lx -> %lx\n", x, y);
+  Serial.printf("Lirc KeyCode to Arduino KeyCode: %x -> %x\n", x, y);
   return y;
 }
 
