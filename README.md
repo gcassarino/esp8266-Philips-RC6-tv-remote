@@ -40,7 +40,15 @@ The full version mimics the same look and functionalities of the real TV remote 
 
 The "custom" version allows you to customize the remote control keys: you can define the position of the key in the board, the function, the color and the text above the key. It is also possible to create sequences of multiple keys to allow more structured actions such as accessing the HDMI ports or setting the sleep timer which are usually operations that require the pressure of a sequence of keys. There is also a visual feedback regarding the sending of the command, green means ok, red means problems (no command sent). 
 
-All layouts are fully responsive and accessible from smartphones and tablets.
+All web page layouts are fully responsive and accessible from smartphones and tablets.
+
+## Todo
+- dump the keyboard map to save the remote control configurations and then reload later or as a backup in case of reset.
+
+## Notes
+- I use version 2.0 of the ntpclient library instead of version 2.5.
+- As per the original application, resetting the card will lose all previous settings.
+- Since I'm not an expert C programmer and given my great ability to forget things, the code is widely commented where modified by me. Well, I'm not a C programmer at all... Just having fun.
 
 
 ## Getting Started
@@ -71,6 +79,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 * ESPAsyncTCP by Hristo Gochkov [(me-no-dev)](https://github.com/me-no-dev)
 * Ken Shirriff's [blog](http://www.righto.com/)
 * IRremoteESP8266 by Ken Shirriff, Sebastien Warin, Mark Szabo, Roi Dayan, David Conran, Massimiliano Pinto (https://platformio.org/lib/show/1089/IRremoteESP8266)
-* Please look at the [resources related repository](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources) for the Fritzing scheme and some screenshots.
+* Please look at the [resources related repository](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources) for the Fritzing scheme and screenshots.
 
 NOTE: This is currently work in progress, a lot of messages come out from the serial console.
