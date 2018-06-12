@@ -21,9 +21,20 @@ Here are some screenshot of the TV remote UI and the server admin backend:
 | *Administration menu* |
 
 | ![Philips TV remote](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-22PFT4000_12-full.png) | 
+|:--:|
 | *Philips TV remote using Jquery/Jquery Mobile (loaded from external website, needs a connection)* |
 
+| ![Philips TV remote light](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-light.png) | 
+|:--:|
+| *Philips TV remote light version has the same functionality as the above version, with the exception of the long press of the keys, present only in the JQuery Mobile version* |
 
+| ![Philips TV remote custom](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-custom-night-mode.png) | 
+|:--:|
+| *Philips TV remote custom in night mode* |
+
+| ![Philips TV remote custom edit mode open](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-custom-edit-mode.png) | 
+|:--:|
+| *Philips TV remote custom with Edit Mode open* |
 
 
 ## Getting Started
