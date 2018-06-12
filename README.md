@@ -26,9 +26,10 @@ Here are some screenshot of the TV remote UI and the server admin backend:
 
 The full version mimics the same look and functionalities of the real TV remote (plus the macros at the bottom).
 
+
 | ![Philips TV remote light](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-light.png) | 
 |:--:|
-| *Philips TV remote light version has the same functionality as the above version, with the exception of the long press of the keys, present only in the JQuery Mobile version* |
+| *Philips TV remote light version has the same functionalities as the above version, with the exception of the long press of the keys, present only in the JQuery Mobile version* |
 
 | ![Philips TV remote custom](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-custom-night-mode.png) | 
 |:--:|
