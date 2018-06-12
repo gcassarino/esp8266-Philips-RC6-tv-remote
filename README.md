@@ -21,7 +21,6 @@ Here are some screenshot of the TV remote UI and the server admin backend:
 | *Administration menu* |
 
 | ![Philips TV remote](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-22PFT4000_12-full.png) | 
-|:--:| 
 | *Philips TV remote using Jquery/Jquery Mobile (loaded from external website, needs a connection)* |
 
 
