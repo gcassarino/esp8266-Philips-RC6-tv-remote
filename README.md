@@ -24,6 +24,8 @@ Here are some screenshot of the TV remote UI and the server admin backend:
 |:--:|
 | *Philips TV remote using Jquery/Jquery Mobile (loaded from external website, needs a connection)* |
 
+The full version mimics the same look and functionalities of the real TV remote.
+
 | ![Philips TV remote light](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-light.png) | 
 |:--:|
 | *Philips TV remote light version has the same functionality as the above version, with the exception of the long press of the keys, present only in the JQuery Mobile version* |
@@ -35,6 +37,8 @@ Here are some screenshot of the TV remote UI and the server admin backend:
 | ![Philips TV remote custom edit mode open](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-custom-edit-mode.png) | 
 |:--:|
 | *Philips TV remote custom with Edit Mode open* |
+
+The "custom" version allows you to customize the remote control keys: you can define the position of the key in the board, the function, the color and the text above the key. It is also possible to create sequences of multiple keys to allow more structured actions such as accessing the HDMI ports or setting the sleep timer which are usually operations that require the pressure of a sequence of keys. There is also a visual feedback regarding the sending of the command, green means ok, red means problems (no command sent).
 
 
 ## Getting Started
