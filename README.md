@@ -41,7 +41,7 @@ The "custom" version allows you to customize the remote control keys: you can de
 All web page layouts are fully responsive and accessible from smartphones and tablets.
 
 ## Todo
-- dump the keyboard map to save the remote control configurations and then reload later or as a backup in case of reset.
+- dump the keyboard map to save the remote control configuration/keys and then reload later or as a backup in case of reset.
 
 ## Notes
 - I use version 2.0 of the ntpclient library instead of version 2.5.
