@@ -10,7 +10,9 @@ I rewrote the PHP backend in C to work on the small microcontroller esp8266 usin
 
 Here are some screenshot of the remote UI and the server admin backend:
 
-TV Remote home ![TV Remote home](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/TV-Remote-ESP8266-home.png)
+| ![TV Remote home](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/TV-Remote-ESP8266-home.png) | 
+|:--:| 
+| *TV Remote home* |
 
 Administration menu ![Administration menu](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/ESP8266-admin-home.png)
 
