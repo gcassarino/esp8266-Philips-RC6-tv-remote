@@ -12,7 +12,7 @@ I rewrote the PHP backend in C to work on the small microcontroller esp8266 usin
 
 This project was tested on a Wemos D1 mini clone, please refer to this scheme for wiring connections
 
-![Fritzing scheme](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/master/esp8266-Philips-RC6-tv-remote_schem.png)
+![Fritzing scheme](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/esp8266-Philips-RC6-tv-remote_schem.png)
 
 
 ### Installing
