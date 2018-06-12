@@ -12,7 +12,7 @@ I rewrote the PHP backend in C to work on the small microcontroller esp8266 usin
 
 This project was tested on a Wemos D1 mini clone, please refer to this scheme for wiring connections
 
-![Fritzing scheme](TODO)
+![Fritzing scheme](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/master/esp8266-Philips-RC6-tv-remote_schem.png)
 
 
 ### Installing
@@ -36,6 +36,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 * ESPAsyncTCP by Hristo Gochkov [(me-no-dev)](https://github.com/me-no-dev)
 * Ken Shirriff's [blog](http://www.righto.com/)
 * IRremoteESP8266 by Ken Shirriff, Sebastien Warin, Mark Szabo, Roi Dayan, David Conran, Massimiliano Pinto (https://platformio.org/lib/show/1089/IRremoteESP8266)
-* Please look at the [resources related repository](TODO) for the Fritzing scheme and some screenshots.
+* Please look at the [resources related repository](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources) for the Fritzing scheme and some screenshots.
 
 NOTE: This is currently work in progress, a lot of messages come out from the serial console.
