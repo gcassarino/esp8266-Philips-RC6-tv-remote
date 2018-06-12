@@ -8,13 +8,22 @@ is avalilable here https://github.com/gcassarino/jquery-mobile-Philips-RC6-tv-re
 
 I rewrote the PHP backend in C to work on the small microcontroller esp8266 using the IRSend library as the equivalent of LIRC used in the Raspberry project. It all started as a challenge to understand if it was possible to "easily" bring the functionality of my TV infrared remote control from the Raspberry version to a microcontroller with wifi functionality. The inevitable choice was the esp8266 and thanks to the excellent library IRremoteESP8266 and using FSBrowserNG as framework for serving web pages I managed to replicate the functionality of the Raspberry more efficiently and without too much difficulties. To convert RC6 from LIRC to IRsend I referred to Ken Shirriff's instructions here: http://www.righto.com/2010/12/64-bit-rc6-codes-arduino-and-xbox.html
 
-Here are some screenshot of the remote UI and the server admin backend:
+I made some small changes to the library of Germán Martín: now all the files of the administrative backend are placed a single directory "admin" to which the relative access permissions are assigned. This is to obtain a better separation of the files of the system from those of the various applications. The other applications reside in their specific folders. Furthermore it is possible to log in and log out from the administrative area. Two variants of the remote control can be used without the need for an Internet connection and directly from the Access Point mode as they do not use external libraries.
+
+Here are some screenshot of the TV remote UI and the server admin backend:
 
 | ![TV Remote home](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/TV-Remote-ESP8266-home.png) | 
 |:--:| 
 | *TV Remote home* |
+ 
+| ![Administration menu](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/ESP8266-admin-home.png) | 
+|:--:| 
+| *Administration menu* |
 
-Administration menu ![Administration menu](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/ESP8266-admin-home.png)
+| ![Philips TV remote](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-22PFT4000_12-full.png) | 
+|:--:| 
+| *Philips TV remote using Jquery/Jquery Mobile (loaded from external website, needs a connection)* |
+
 
 
 
