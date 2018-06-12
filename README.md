@@ -8,6 +8,14 @@ is avalilable here https://github.com/gcassarino/jquery-mobile-Philips-RC6-tv-re
 
 I rewrote the PHP backend in C to work on the small microcontroller esp8266 using the IRSend library as the equivalent of LIRC used in the Raspberry project. It all started as a challenge to understand if it was possible to "easily" bring the functionality of my TV infrared remote control from the Raspberry version to a microcontroller with wifi functionality. The inevitable choice was the esp8266 and thanks to the excellent library IRremoteESP8266 and using FSBrowserNG as framework for serving web pages I managed to replicate the functionality of the Raspberry more efficiently and without too much difficulties. To convert RC6 from LIRC to IRsend I referred to Ken Shirriff's instructions here: http://www.righto.com/2010/12/64-bit-rc6-codes-arduino-and-xbox.html
 
+Here are some screenshot of the remote UI and the server admin backend:
+
+TV Remote home (https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/TV-Remote-ESP8266-home.png)
+
+Administration menu (https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/ESP8266-admin-home.png)
+
+
+
 ## Getting Started
 
 This project was tested on a Wemos D1 mini clone, please refer to this scheme for wiring connections
