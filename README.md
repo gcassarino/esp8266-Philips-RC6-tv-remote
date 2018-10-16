@@ -12,27 +12,27 @@ I made some small changes to the library of Germán Martín: now all the files o
 
 Here are some screenshot of the TV remote UI and the server admin backend:
 
-| ![TV Remote home](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/TV-Remote-ESP8266-home.png) | 
-|:--:| 
+| ![TV Remote home](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/TV-Remote-ESP8266-home.png) |
+|:--:|
 | *TV Remote home* |
- 
-| ![Administration menu](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/ESP8266-admin-home.png) | 
-|:--:| 
+
+| ![Administration menu](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/ESP8266-admin-home.png) |
+|:--:|
 | *Administration menu* |
 
-| ![Philips TV remote](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-22PFT4000_12-full.png) | 
+| ![Philips TV remote](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-22PFT4000_12-full.png) |
 |:--:|
 | *Philips TV remote using Jquery/Jquery Mobile (loaded from external website, needs an Internet connection). The full version mimics the same look and functionalities of the real TV remote (plus the macros at the bottom).* |
 
-| ![Philips TV remote light](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-light.png) | 
+| ![Philips TV remote light](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-light.png) |
 |:--:|
 | *Philips TV remote light version has the same functionalities as the above version, with the exception of the long press of the keys, present only in the JQuery Mobile version* |
 
-| ![Philips TV remote custom](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-custom-night-mode.png) | 
+| ![Philips TV remote custom](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-custom-night-mode.png) |
 |:--:|
 | *Philips TV remote custom in night mode* |
 
-| ![Philips TV remote custom edit mode open](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-custom-edit-mode.png) | 
+| ![Philips TV remote custom edit mode open](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources/blob/master/Philips-TV-Remote-custom-edit-mode.png) |
 |:--:|
 | *Philips TV remote custom with Edit Mode open* |
 
@@ -40,8 +40,6 @@ The "custom" version allows you to customize the remote control keys: you can de
 
 All web page layouts are fully responsive and accessible from smartphones and tablets.
 
-## Todo
-- dump the keyboard map to save the remote control configuration/keys and then reload later or as a backup in case of reset. Suggestions are always welcome.
 
 ## Notes
 - I use version 2.0 of the ntpclient library instead of version 2.5.
