@@ -41,8 +41,11 @@
 // al link http://esp8266fs.local/config.json
 #define HIDE_CONFIG
 #define CONFIG_FILE "/config.json"
+// #define HIDE_USER_CONFIG // Gianluca2018 aggiunto, mi permette di accedere
+// al file di config personale con permessi separati
 #define USER_CONFIG_FILE "/userconfig.json"
 #define GENERIC_CONFIG_FILE "/genericconfig.json"
+#define HIDE_SECRET // hide SECRET_FILE from browser access
 #define SECRET_FILE "/secret.json"
 
 #define JSON_CALLBACK_SIGNATURE std::function<void(AsyncWebServerRequest *request)> jsoncallback

@@ -1629,6 +1629,10 @@ void AsyncFSWebServer::serverInit() {
         request->send(response);
     });
 
+#endif // HIDE_CONFIG
+
+#ifdef HIDE_USER_CONFIG
+
 	on(USER_CONFIG_FILE, HTTP_GET, [this](AsyncWebServerRequest *request) {
 		if (!this->checkAuth(request))
 			return request->requestAuthentication();
@@ -1638,7 +1642,7 @@ void AsyncFSWebServer::serverInit() {
 		request->send(response);
 	});
 
-#endif // HIDE_CONFIG
+#endif // HIDE_USER_CONFIG
 
     //get heap status, analog input value and all GPIO statuses in one json call
     on("/all", HTTP_GET, [](AsyncWebServerRequest *request) {

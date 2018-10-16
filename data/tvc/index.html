@@ -200,7 +200,8 @@
 
 	<div class="otherPrefs">
 		<a href="#" onclick="toggleNightDay();return false;" id="toggleNightDayBtn" class="btn btn--s" style="width:128px; display:inline-block;">Toggle Night/Day</a>
-		<a href="#" onclick="alert('todo');return false;" id="dumpKeyboardMapBtn" class="btn btn--s btn--grey" style="width:128px; display:inline-block;">dump Keyboard Map</a>
+		<a href="/userconfig.json" id="dumpKeyboardMapBtn" class="btn btn--s btn--grey" style="width:128px; display:inline-block;">dump Keyboard Map</a>
+		<div style="font-size: 11px;">Tip: paste the contents of the keyboard dump into the userconfig.json file using the editor available in "Administration -> System Settings -> <a href="/admin/edit">FS EDITOR</a>"</div>
 	</div>
 
 <script>
@@ -464,7 +465,7 @@
                                     document.querySelector('#res').classList.add("res-off");
                                 }
                             }, 40); // 1000/40 = 25 fps
-                            
+
                         } else {
                             console.log("ko");
                                 document.querySelector('#res').classList.add("res-ko");
