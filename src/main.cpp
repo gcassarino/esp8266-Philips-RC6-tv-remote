@@ -127,7 +127,12 @@ void setup() {
 
 // The repeating section of the code
 void loop() {
-
+  /*
+  //////////////////////////////////////////////////////
+  // NOTE 28nov2018 this function should not be here as
+  // it slows down the web server. To be used only for debugging.
+  // TODO write an event for the web server to handle irrecv
+  //////////////////////////////////////////////////////
   // Check if the IR code has been received.
   if (irrecv.decode(&results)) {
     Serial.println();
@@ -153,7 +158,7 @@ void loop() {
     yield(); // Feed the WDT (again)
     Serial.println("-------------------------IR RECEIVER DUMP END---------------------------");
     Serial.println();
-  }
+  }*/
 
   // if (syncEventTriggered) {
 	// 	//processSyncEvent(ntpEvent);
