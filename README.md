@@ -1,7 +1,7 @@
 # esp8266-Philips-RC6-tv-remote
 an implementation of the Philips 22PFT4000/12 tv remote control interface using Javascript and an ESP8266/IRSend as backend.
 
-NOTE: This is currently work in progress.
+NOTE: this project is no longer actively maintained
 
 This implementation for esp8266 derives from another one that I previously made for the Raspberry, using PHP and LIRC. The original PHP project for the Raspberry
 is avalilable here https://github.com/gcassarino/jquery-mobile-Philips-RC6-tv-remote
@@ -77,4 +77,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 * IRremoteESP8266 by Ken Shirriff, Sebastien Warin, Mark Szabo, Roi Dayan, David Conran, Massimiliano Pinto (https://platformio.org/lib/show/1089/IRremoteESP8266)
 * Please look at the [resources related repository](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources) for the Fritzing scheme and screenshots.
 
-NOTE: This is currently work in progress, a lot of messages come out from the serial console.
