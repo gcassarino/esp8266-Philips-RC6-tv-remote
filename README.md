@@ -77,3 +77,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 * IRremoteESP8266 by Ken Shirriff, Sebastien Warin, Mark Szabo, Roi Dayan, David Conran, Massimiliano Pinto (https://platformio.org/lib/show/1089/IRremoteESP8266)
 * Please look at the [resources related repository](https://github.com/gcassarino/esp8266-Philips-RC6-tv-remote-resources) for the Fritzing scheme and screenshots.
 
+Note: to extend led's life it's safer to drive the LED with a resistor.
